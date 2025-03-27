@@ -49,8 +49,9 @@ En el siguiente laboratorio, vamos a practicar los siguientes comandos de Docker
 
 1. Escribe el siguiente comando y ejecútalo:
 
+    ```
     docker info
-
+    ```
 2. Analiza la salida y responde las siguientes preguntas:
 
 - ¿Cuál es la versión del servidor de Docker que estás utilizando?

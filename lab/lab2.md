@@ -47,12 +47,11 @@ En el siguiente laboratorio, vamos a practicar los siguientes comandos de Docker
 
 **Objetivo:** Comprender qué información proporciona docker info y cómo interpretar sus datos.
 
-1. Escribe el siguiente comando y ejecútalo:
+Escribe el siguiente comando y ejecútalo:
 
-    ```
     docker info
-    ```
-2. Analiza la salida y responde las siguientes preguntas:
+
+Analiza la salida y responde las siguientes preguntas:
 
 - ¿Cuál es la versión del servidor de Docker que estás utilizando?
 - ¿Cuántos contenedores están en ejecución, detenidos y creados?
@@ -64,18 +63,15 @@ En el siguiente laboratorio, vamos a practicar los siguientes comandos de Docker
 
 **Objetivo**: Comprender la diferencia entre la versión del cliente y del servidor de Docker, y cómo verificar compatibilidad entre versiones.
 
-1. Abre una terminal y ejecuta el siguiente comando:
+Abre una terminal y ejecuta el siguiente comando:
 
     docker version
 
-2. Analiza la salida y responde las siguientes preguntas:
+Analiza la salida y responde las siguientes preguntas:
 
 - ¿Cuál es la versión del cliente de Docker instalada en tu sistema?
-
 - ¿Cuál es la versión del servidor (Engine)?
-
 - ¿Las versiones del cliente y del servidor coinciden? Si no, ¿qué podría significar esto?
-
 - ¿Qué API version está utilizando tu Docker Engine?
 
 ### docker system
@@ -84,75 +80,68 @@ En el siguiente laboratorio, vamos a practicar los siguientes comandos de Docker
 
 **Objetivo**: Comprender el propósito de docker system y cómo usar sus subcomandos para gestionar recursos de Docker.
 
-1. Ejecuta el siguiente comando y analiza su salida:
+Ejecuta el siguiente comando y analiza su salida:
 
     docker system info
 
-2. ¿En qué se diferencia esta salida de docker info?
+¿En qué se diferencia esta salida de docker info? ¿Qué información adicional encuentras aquí?
 
-3. ¿Qué información adicional encuentras aquí?
-
-4. Comprobar el uso de espacio en disco. Ejecuta:
+Comprobar el uso de espacio en disco. Ejecuta:
 
     docker system df
 
-5. Responde las siguientes preguntas:
+Responde las siguientes preguntas:
 
 - ¿Cuánto espacio ocupan actualmente las imágenes en tu sistema?
-
 - ¿Cuántos contenedores tienes creados, en ejecución y detenidos?
-
 - ¿Cuánto espacio ocupan los volúmenes?
 
-6. Liberar espacio en Docker. Si quieres eliminar datos innecesarios, ejecuta:
+Liberar espacio en Docker. Si quieres eliminar datos innecesarios, ejecuta:
 
     docker system prune
 
 - ¿Qué elementos ha eliminado Docker?
-
 - ¿Qué diferencia hay entre docker system prune y docker system prune -a? Antes de ejecutar docker system prune -a, intenta predecir qué impacto tendrá en tu sistema.
 
 
-7. Ejecuta docker system df -v y explica la diferencia con docker system df. ¿Por qué es importante revisar el uso de disco en entornos con espacio limitado?
+Ejecuta docker `system df -v` y explica la diferencia con docker system df. ¿Por qué es importante revisar el uso de disco en entornos con espacio limitado?
 
 ### docker events
 - Ejercicio: Monitorizando Eventos en Docker con docker events
 
 **Objetivo**: Comprender cómo docker events permite monitorear en tiempo real las acciones realizadas en Docker.
 
-1. Ejecutar docker events y observar los cambios en tiempo real. Abre una terminal y ejecuta el siguiente comando:
+Ejecutar docker events y observar los cambios en tiempo real. Abre una terminal y ejecuta el siguiente comando:
 
     docker events
 
-2. Deja la terminal abierta y en otra terminal realiza las siguientes acciones:
+Deja la terminal abierta y en otra terminal realiza las siguientes acciones:
 
-- Crea un contenedor con nginx:
+Crea un contenedor con nginx:
 
     docker run -d --name test-nginx nginx
-
-- Detén el contenedor:
+Detén el contenedor:
 
     docker stop test-nginx
+Elimina el contenedor:
 
-- Elimina el contenedor:
-
-  docker rm test-nginx
+    docker rm test-nginx
 
 - Observa la terminal donde ejecutaste docker events. ¿Qué tipo de eventos aparecen? ¿Qué información muestra cada evento?
 
-3. Filtrando eventos específicos. En lugar de ver todos los eventos, filtra solo los relacionados con contenedores:
+Filtrando eventos específicos. En lugar de ver todos los eventos, filtra solo los relacionados con contenedores:
 
     docker events --filter 'type=container'
 
-- Repite la creación y eliminación de un contenedor. ¿La salida es más clara que sin el filtro? ¿Por qué crees que es útil este filtro?
+Repite la creación y eliminación de un contenedor. ¿La salida es más clara que sin el filtro? ¿Por qué crees que es útil este filtro?
 
-4. Obteniendo eventos dentro de un rango de tiempo. Para ver eventos ocurridos en los últimos 30 segundos, usa:
+Obteniendo eventos dentro de un rango de tiempo. Para ver eventos ocurridos en los últimos 30 segundos, usa:
 
     docker events --since 30s
 
-¿Aparecen los eventos de los contenedores que creaste y eliminaste antes?
+- ¿Aparecen los eventos de los contenedores que creaste y eliminaste antes?
 
-5. Usa docker events para monitorear imágenes en lugar de contenedores:
+Usa docker events para monitorear imágenes en lugar de contenedores:
 
     docker events --filter 'type=image'
 
@@ -164,54 +153,56 @@ Descarga una imagen nueva `docker pull apache` y observa qué eventos aparecen.
 
 **Objetivo**: Comprender cómo docker inspect permite obtener información detallada de contenedores, imágenes, volúmenes y redes en Docker.
 
-1. Crea un contenedor basado en la imagen nginx:
+Crea un contenedor basado en la imagen nginx:
 
     docker run -d --name mi_nginx nginx
 
-2. Inspecciona el contenedor con:
+Inspecciona el contenedor con:
 
     docker inspect mi_nginx
 
-3. Analiza la salida y responde:
+Analiza la salida y responde:
 
 - ¿Cuál es la dirección IP asignada al contenedor?
 - ¿Qué puerto está expuesto?
 - ¿Cuál es la ruta donde se almacena el sistema de archivos del contenedor en el host?
 
-4. Filtrar Información con --format. La salida de docker inspect es extensa. Usa el formato JSON para extraer información específica:
+Filtrar Información con --format. La salida de docker inspect es extensa. Usa el formato JSON para extraer información específica:
 
-- Obtén solo la dirección IP del contenedor:
+Obtén solo la dirección IP del contenedor:
 
     docker inspect --format '{{ .NetworkSettings.IPAddress }}' mi_nginx
 
-- Encuentra el estado del contenedor (running, stopped, etc.):
+Encuentra el estado del contenedor (running, stopped, etc.):
 
     docker inspect --format '{{ .State.Status }}' mi_nginx
 
-3. Inspeccionar una Imagen de Docker
+Inspeccionar una Imagen de Docker
 
     docker inspect nginx
 
 - ¿Cuál es el ID de la imagen?
 - ¿Qué capas (Layers) componen la imagen?
 
-4. Crea un volumen en Docker:
+Crea un volumen en Docker:
 
     docker volume create mi_volumen
 
-- Inspecciona su información:
+Inspecciona su información:
 
     docker inspect mi_volumen
 
-- ¿Dónde está almacenado el volumen en el host?
+¿Dónde está almacenado el volumen en el host?
 
-5. Inspeccionar una Red de Docker. Lista las redes disponibles en tu sistema:
+Inspeccionar una Red de Docker. Lista las redes disponibles en tu sistema:
+
     docker network ls
 
-- Inspecciona la red bridge:
+Inspecciona la red bridge:
 
     docker inspect bridge
-- ¿Cuántos contenedores están conectados a esta red?
+
+¿Cuántos contenedores están conectados a esta red?
 
 ### docker logs
 
@@ -219,51 +210,51 @@ Descarga una imagen nueva `docker pull apache` y observa qué eventos aparecen.
 
 **Objetivo**: Comprender cómo docker logs permite visualizar la salida de los contenedores en ejecución y usar opciones para filtrar información útil.
 
-1. Ver los Logs de un Contenedor. Inicia un contenedor basado en nginx:
+Ver los Logs de un Contenedor. Inicia un contenedor basado en nginx:
 
     docker run -d --name mi_nginx nginx
 
-2. Verifica su estado:
+Verifica su estado:
 
     docker ps
 
-3. Muestra los registros del contenedor:
+Muestra los registros del contenedor:
 
     docker logs mi_nginx
 
 - ¿Aparece alguna salida en los logs? ¿Por qué?
 
-4. Inspeccionar los Logs en Tiempo Real. Inicia un contenedor que genere salida en los logs:
+Inspeccionar los Logs en Tiempo Real. Inicia un contenedor que genere salida en los logs:
 
     docker run -d --name mi_app busybox sh -c "while true; do echo 'Hola Docker'; sleep 2; done"
 
-- Observa los logs en tiempo real con -f (follow):
+Observa los logs en tiempo real con -f (follow):
 
     docker logs -f mi_app
 
-- Abre otra terminal y detén el contenedor:
+Abre otra terminal y detén el contenedor:
 
     docker stop mi_app
 
 - ¿Qué ocurrió en la terminal donde estabas viendo los logs?
 
-5. Mostrar Solo las Últimas Líneas de los Logs. Reinicia el contenedor que genera logs:
+Mostrar Solo las Últimas Líneas de los Logs. Reinicia el contenedor que genera logs:
 
     docker start mi_app
 
-- Muestra solo las últimas 5 líneas del log:
+Muestra solo las últimas 5 líneas del log:
 
     docker logs --tail 5 mi_app
 
 - ¿Por qué puede ser útil esta opción?
 
-4. Ver Logs con Marca de Tiempo. Ejecuta el siguiente comando:
+Ver Logs con Marca de Tiempo. Ejecuta el siguiente comando:
 
     docker logs --timestamps mi_app
 
 - ¿Cómo te ayuda a interpretar los eventos dentro del contenedor?
 
-5. Filtrar Logs por Fecha y Hora. Usa docker logs --since 10s para ver solo los eventos de los últimos 10 segundos:
+Filtrar Logs por Fecha y Hora. Usa docker logs --since 10s para ver solo los eventos de los últimos 10 segundos:
 
     docker logs --since 10s mi_app
 
@@ -275,41 +266,43 @@ Descarga una imagen nueva `docker pull apache` y observa qué eventos aparecen.
 
 **Objetivo**: Comprender cómo docker port permite verificar qué puertos de un contenedor están mapeados en el host.
 
-1. Crear un Contenedor con un Puerto Expuesto. Inicia un contenedor de nginx y expón el puerto 8080 en el host:
+Crear un Contenedor con un Puerto Expuesto. Inicia un contenedor de nginx y expón el puerto 8080 en el host:
 
     docker run -d --name mi_nginx -p 8080:80 nginx
 
-- Lista los contenedores en ejecución:
+Lista los contenedores en ejecución:
 
     docker ps
 
-- Observa la columna PORTS. ¿Qué información muestra?
+Observa la columna PORTS. ¿Qué información muestra?
 
-2. Usar docker port para Ver los Puertos Mapeados. Ejecuta el siguiente comando para ver los puertos expuestos del contenedor:
+Usar docker port para Ver los Puertos Mapeados. Ejecuta el siguiente comando para ver los puertos expuestos del contenedor:
 
     docker port mi_nginx
 
 - ¿Cuál es el puerto interno del contenedor?
 - ¿Cuál es el puerto del host donde está mapeado?
 
-3. Probar la Conectividad al Contenedor. Abre un navegador y accede a:
+Probar la Conectividad al Contenedor. Abre un navegador y accede a:
 
     http://localhost:8080
 
 - ¿Se muestra la página de inicio de nginx?
-- Si el puerto 8080 ya estaba en uso, intenta ejecutar el contenedor con otro puerto:
+
+Si el puerto 8080 ya estaba en uso, intenta ejecutar el contenedor con otro puerto:
 
     docker run -d --name otro_nginx -p 9090:80 nginx
 
 Usa `docker port otro_nginx` para verificar la nueva asignación.
 
-4. Comprobar Puertos de un Contenedor que NO los Expone. Ejecuta un contenedor de alpine sin exponer puertos:
+Comprobar Puertos de un Contenedor que NO los Expone. Ejecuta un contenedor de alpine sin exponer puertos:
 
     docker run -d --name mi_alpine alpine sleep 1000
 
-- Intenta ejecutar:
+Intenta ejecutar:
 
     docker port mi_alpine
+
 - ¿Qué resultado obtienes? ¿Por qué?
 
 ### docker stats
@@ -317,39 +310,40 @@ Usa `docker port otro_nginx` para verificar la nueva asignación.
 
 **Objetivo**: Comprender cómo docker stats permite visualizar en tiempo real el consumo de CPU, memoria, red y otros recursos de los contenedores en ejecución.
 
-1. Iniciar un Contenedor y Observar su Consumo de Recursos. Ejecuta un contenedor de nginx:
+Iniciar un Contenedor y Observar su Consumo de Recursos. Ejecuta un contenedor de nginx:
 
     docker run -d --name mi_nginx nginx
 
-2. Usa docker stats para ver el consumo de recursos:
+Usa docker stats para ver el consumo de recursos:
 
     docker stats
-3. Observa la salida y responde:
+
+Observa la salida y responde:
 
 - ¿Cuánto CPU y memoria está usando mi_nginx?
 - ¿Está generando tráfico de red?
 
-2. Ejecutar un Contenedor que Consuma Recursos. Lanza un contenedor de stress para generar carga en la CPU y la memoria:
+Ejecutar un Contenedor que Consuma Recursos. Lanza un contenedor de stress para generar carga en la CPU y la memoria:
 
     docker run -d --name estresado --rm progrium/stress --cpu 2 --vm 2 --vm-bytes 100M
 
-- Vuelve a ejecutar docker stats. ¿Notas un aumento en el uso de CPU y memoria?
+Vuelve a ejecutar docker stats. ¿Notas un aumento en el uso de CPU y memoria?
 
-3. Detén el contenedor para liberar los recursos:
+Detén el contenedor para liberar los recursos:
 
     docker stop estresado
 
-4. Monitorizar un Contenedor Específico. En lugar de ver todos los contenedores, muestra solo los recursos de mi_nginx:
+Monitorizar un Contenedor Específico. En lugar de ver todos los contenedores, muestra solo los recursos de mi_nginx:
 
     docker stats mi_nginx
 
 - ¿Es más fácil interpretar la información con un solo contenedor?
 
-4. Limitar el Uso de Recursos y Comparar Resultados. Crea un contenedor nginx con un límite de CPU y memoria:
+Limitar el Uso de Recursos y Comparar Resultados. Crea un contenedor nginx con un límite de CPU y memoria:
 
     docker run -d --name nginx_limitado --memory=100m --cpus=0.5 nginx
 
-- Ejecuta docker stats nginx_limitado. ¿Está usando más CPU o memoria que el contenedor sin restricciones? ¿Qué pasa si intentas aumentar la carga en un contenedor con límites? (prueba con el contenedor `estresado`)
+Ejecuta docker stats nginx_limitado. ¿Está usando más CPU o memoria que el contenedor sin restricciones? ¿Qué pasa si intentas aumentar la carga en un contenedor con límites? (prueba con el contenedor `estresado`)
 
 ### docker top
 
@@ -357,41 +351,41 @@ Usa `docker port otro_nginx` para verificar la nueva asignación.
 
 **Objetivo**: Comprender cómo docker top permite inspeccionar los procesos en ejecución dentro de un contenedor de Docker.
 
-1. Iniciar un Contenedor y Ver sus Procesos. Ejecuta un contenedor basado en nginx:
+Iniciar un Contenedor y Ver sus Procesos. Ejecuta un contenedor basado en nginx:
 
     docker run -d --name mi_nginx nginx
 
-2. Lista los procesos en ejecución dentro del contenedor:
+Lista los procesos en ejecución dentro del contenedor:
 
     docker top mi_nginx
 
-3. Observa la salida y responde: ¿Qué proceso principal está ejecutando el contenedor? ¿Cuál es su PID (Process ID) dentro del contenedor y en el host?
+Observa la salida y responde: ¿Qué proceso principal está ejecutando el contenedor? ¿Cuál es su PID (Process ID) dentro del contenedor y en el host?
 
-4. Comparar con ps aux en el Host. Usa ps aux en el host para buscar el proceso de nginx:
+Comparar con ps aux en el Host. Usa ps aux en el host para buscar el proceso de nginx:
 
     ps aux | grep nginx
 
 - ¿Coinciden los PIDs mostrados en docker top con los del host?
 
-3. Ejecutar un Contenedor con un Proceso Interactivo. Lanza un contenedor basado en ubuntu en modo interactivo:
+Ejecutar un Contenedor con un Proceso Interactivo. Lanza un contenedor basado en ubuntu en modo interactivo:
 
     docker run -d --name mi_ubuntu ubuntu sleep 1000
 
-- Usa docker top para ver qué proceso se está ejecutando:
+Usa docker top para ver qué proceso se está ejecutando:
 
     docker top mi_ubuntu
 
 - ¿Cuál es el único proceso que aparece?
 
-4. Comparar docker top con docker exec. Accede al contenedor con docker exec:
+Comparar docker top con docker exec. Accede al contenedor con docker exec:
 
     docker exec -it mi_ubuntu bash
 
-- Dentro del contenedor, ejecuta:
+Dentro del contenedor, ejecuta:
 
     ps aux
 
-¿Notas alguna diferencia con la salida de docker top?
+- ¿Notas alguna diferencia con la salida de docker top?
 
 ## Ejercicios de Contenedores
 ### docker run

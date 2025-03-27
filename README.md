@@ -7,7 +7,7 @@
     - [Arquitectura Docker](./pdf/arquitectura.pdf)
     - [Lab 1: Instalación servicio Docker]()
     - [Introducción a Docker Open Soruce]()
-    - [Lab 2: Play with Docker]()
+    - [Lab 2: Play with Docker](./lab/lab2.md)
 
 - Sesión 2:
     - [Docker Daemon Security]()

@@ -387,7 +387,7 @@ Dentro del contenedor, ejecuta:
 
 ### docker run
 
-### Ejercicio 1
+#### Ejercicio 1
 Diferencia entre -d y -it en docker run
 
 **Objetivo**: Comprender la diferencia entre ejecutar un contenedor en modo detached (-d) y en modo interactivo (-it).
@@ -422,6 +422,7 @@ Preguntas:
 - ¿Qué sucede si intentas iniciar sesión en el contenedor de nginx con `docker exec -it nginx_detached bash`?
 
 #### Ejercicio 2
+
 Ejecutar un Contenedor de Base de Datos con Variables de Entorno
 
 **Objetivo**: Aprender a configurar un contenedor de base de datos pasando credenciales mediante variables de entorno.

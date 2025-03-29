@@ -4,9 +4,9 @@
 
 - Sesión 1:
     - [Presentación](./pdf/presentacion.pdf)
-    - [Arquitectura Docker](./pdf/arquitectura.pdf)
+    - [Arquitectura Docker](./pdf/1_arquitectura.pdf)
     - [Lab 1: Instalación servicio Docker](./lab/lab1.md)
-    - [Introducción a Docker Open Soruce](./pdf/introduccion.pdf)
+    - [Introducción a Docker Open Soruce](./pdf/2_introduccion.pdf)
     - [Lab 2: Play with Docker](./lab/lab2.md)
 
 - Sesión 2:

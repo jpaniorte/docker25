@@ -10,7 +10,7 @@
     - [Lab 2: Play with Docker](./lab/lab2.md)
 
 - Sesión 2:
-    - [Docker Daemon Security]()
+    - [Docker Daemon Security](./pdf/4_daemon_security.pdf)
     - [Lab 3: Escalando privilegios]()
     - [Lab 4: Docker Rootlees]()
     - [Lab 5: User namespace remapping]()
@@ -18,8 +18,8 @@
     - [Lab 7: Resources constraints]()
 
 - Sesión 3:
-    - [Docker Build: Dockerfile]()
-    - [Lab 8: Play with docker build]()
+    - [Docker Build: Dockerfile](./pdf/3_Dockerfile.pdf)
+    - [Lab 8: Play with docker build](./lab/lab8/lab8.md)
     - [Docker Image Security]()
     - [Lab 9: Scan images with Trivy]()
     - [Lab 10: Lint Dockerfile with Hadolint]()

@@ -26,6 +26,7 @@ jobs:
         for pptx in $(find . -name '*.pptx'); do
           libreoffice --headless --convert-to pdf "$pptx"
         done
+        mv *.pdf ./pdf
 
     - name: Commit PDF files
       run: |

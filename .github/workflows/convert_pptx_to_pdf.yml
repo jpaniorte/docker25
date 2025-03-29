@@ -10,30 +10,32 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    # Paso 1: Configurar la versión de LibreOffice
+    # - name: Set up LibreOffice
+    #   run: sudo apt-get install -y libreoffice
+
     - name: Set up LibreOffice
-      run: sudo apt-get install -y libreoffice
+      run: pwd
 
-    # Paso 2: Comprobar los archivos .pptx
-    - name: Check for PPTX files
-      run: |
-        echo "Files to convert:"
-        find . -name '*.pptx'
+    - name: Set up LibreOffice
+      run: ll
 
-    # Paso 3: Convertir archivos .pptx a .pdf
-    - name: Convert PPTX to PDF
-      run: |
-        for pptx in $(find . -name '*.pptx'); do
-          libreoffice --headless --convert-to pdf "$pptx"
-        done
+    # - name: Check for PPTX files
+    #   run: |
+    #     echo "Files to convert:"
+    #     find . -name '*.pptx'
 
-    # Paso 4: Subir los archivos PDF convertidos
-    - name: Commit PDF files
-      run: |
-        git config --global user.name "GitHub Actions"
-        git config --global user.email "actions@github.com"
-        git add *.pdf
-        git commit -m "Add converted PDFs"
-        git push
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    # - name: Convert PPTX to PDF
+    #   run: |
+    #     for pptx in $(find . -name '*.pptx'); do
+    #       libreoffice --headless --convert-to pdf "$pptx"
+    #     done
+
+    # - name: Commit PDF files
+    #   run: |
+    #     git config --global user.name "GitHub Actions"
+    #     git config --global user.email "actions@github.com"
+    #     git add *.pdf
+    #     git commit -m "Add converted PDFs"
+    #     git push
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

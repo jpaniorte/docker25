@@ -34,20 +34,19 @@ En el siguiente laboratorio, vamos a practicar los siguientes comandos de Docker
 ### [Redes y volúmenes](#ejercicios-de-redes-y-volúmenes)
 - [**network:** Manage networks](#docker-network)
 - [**volume:** Manage volumes](#docker-volume)
+
+### [Docker Compose](#docker-compose-1)
+
 ---
 
 ## Ejercicios de Administración
 
 ### docker info
-- Ejercicio: Explorando la Información del Sistema Docker
-
-**Objetivo:** Comprender qué información proporciona docker info y cómo interpretar sus datos.
+Muestra información detallada sobre la configuración y el estado del demonio de Docker.
 
 Escribe el siguiente comando y ejecútalo:
 
     docker info
-
-Analiza la salida y responde las siguientes preguntas:
 
 - ¿Cuál es la versión del servidor de Docker que estás utilizando?
 - ¿Cuántos contenedores están en ejecución, detenidos y creados?
@@ -55,15 +54,11 @@ Analiza la salida y responde las siguientes preguntas:
 
 ### docker version
 
-- Ejercicio: Identificando la Versión de Docker y sus Componentes
-
-**Objetivo**: Comprender la diferencia entre la versión del cliente y del servidor de Docker, y cómo verificar compatibilidad entre versiones.
+Muestra las versiones del cliente y del servidor de Docker.
 
 Abre una terminal y ejecuta el siguiente comando:
 
     docker version
-
-Analiza la salida y responde las siguientes preguntas:
 
 - ¿Cuál es la versión del cliente de Docker instalada en tu sistema?
 - ¿Cuál es la versión del servidor (Engine)?
@@ -72,9 +67,7 @@ Analiza la salida y responde las siguientes preguntas:
 
 ### docker system
 
-- Ejercicio: Ver información general del sistema Docker
-
-**Objetivo**: Comprender el propósito de docker system y cómo usar sus subcomandos para gestionar recursos de Docker.
+Gestiona aspectos generales del sistema Docker, como información, limpieza y uso de recursos.
 
 Ejecuta el siguiente comando y analiza su salida:
 
@@ -99,15 +92,12 @@ Liberar espacio en Docker. Si quieres eliminar datos innecesarios, ejecuta:
 - ¿Qué elementos ha eliminado Docker?
 - ¿Qué diferencia hay entre docker system prune y docker system prune -a? Antes de ejecutar docker system prune -a, intenta predecir qué impacto tendrá en tu sistema.
 
-
 Ejecuta docker `system df -v` y explica la diferencia con docker system df. ¿Por qué es importante revisar el uso de disco en entornos con espacio limitado?
 
 ### docker events
-- Ejercicio: Monitorizando Eventos en Docker con docker events
+Muestra en tiempo real los eventos del daemon de Docker, como creación, inicio o eliminación de contenedores.
 
-**Objetivo**: Comprender cómo docker events permite monitorear en tiempo real las acciones realizadas en Docker.
-
-Ejecutar docker events y observar los cambios en tiempo real. Abre una terminal y ejecuta el siguiente comando:
+Abre una terminal y ejecuta el siguiente comando:
 
     docker events
 
@@ -125,7 +115,7 @@ Elimina el contenedor:
 
 - Observa la terminal donde ejecutaste docker events. ¿Qué tipo de eventos aparecen? ¿Qué información muestra cada evento?
 
-Filtrando eventos específicos. En lugar de ver todos los eventos, filtra solo los relacionados con contenedores:
+En lugar de ver todos los eventos, filtra solo los relacionados con contenedores:
 
     docker events --filter 'type=container'
 
@@ -145,9 +135,7 @@ Descarga una imagen nueva `docker pull apache` y observa qué eventos aparecen.
 
 ### docker inspect
 
-- Ejercicio: Inspeccionando Objetos en Docker con docker inspect
-
-**Objetivo**: Comprender cómo docker inspect permite obtener información detallada de contenedores, imágenes, volúmenes y redes en Docker.
+Muestra información detallada en formato JSON sobre contenedores, imágenes, volúmenes o redes de Docker.
 
 Crea un contenedor basado en la imagen nginx:
 
@@ -156,8 +144,6 @@ Crea un contenedor basado en la imagen nginx:
 Inspecciona el contenedor con:
 
     docker inspect mi_nginx
-
-Analiza la salida y responde:
 
 - ¿Cuál es la dirección IP asignada al contenedor?
 - ¿Qué puerto está expuesto?
@@ -202,11 +188,9 @@ Inspecciona la red bridge:
 
 ### docker logs
 
-- Ejercicio: Analizando Registros de Contenedores con docker logs
+Muestra los registros de salida (logs) de un contenedor en ejecución o detenido.
 
-**Objetivo**: Comprender cómo docker logs permite visualizar la salida de los contenedores en ejecución y usar opciones para filtrar información útil.
-
-Ver los Logs de un Contenedor. Inicia un contenedor basado en nginx:
+Inicia un contenedor basado en nginx:
 
     docker run -d --name mi_nginx nginx
 
@@ -220,7 +204,7 @@ Muestra los registros del contenedor:
 
 - ¿Aparece alguna salida en los logs? ¿Por qué?
 
-Inspeccionar los Logs en Tiempo Real. Inicia un contenedor que genere salida en los logs:
+Inicia un contenedor que genere salida en los logs:
 
     docker run -d --name mi_app busybox sh -c "while true; do echo 'Hola Docker'; sleep 2; done"
 
@@ -234,7 +218,7 @@ Abre otra terminal y detén el contenedor:
 
 - ¿Qué ocurrió en la terminal donde estabas viendo los logs?
 
-Mostrar Solo las Últimas Líneas de los Logs. Reinicia el contenedor que genera logs:
+Reinicia el contenedor que genera logs:
 
     docker start mi_app
 
@@ -242,9 +226,7 @@ Muestra solo las últimas 5 líneas del log:
 
     docker logs --tail 5 mi_app
 
-- ¿Por qué puede ser útil esta opción?
-
-Ver Logs con Marca de Tiempo. Ejecuta el siguiente comando:
+Ejecuta el siguiente comando:
 
     docker logs --timestamps mi_app
 
@@ -258,11 +240,9 @@ Filtrar Logs por Fecha y Hora. Usa docker logs --since 10s para ver solo los eve
 
 ### docker port
 
-- Ejercicio: Identificando Puertos Expuestos con docker port
+Muestra los mapeos de puertos de un contenedor.
 
-**Objetivo**: Comprender cómo docker port permite verificar qué puertos de un contenedor están mapeados en el host.
-
-Crear un Contenedor con un Puerto Expuesto. Inicia un contenedor de nginx y expón el puerto 8080 en el host:
+Inicia un contenedor de nginx y expón el puerto 8080 en el host:
 
     docker run -d --name mi_nginx -p 8080:80 nginx
 
@@ -272,7 +252,7 @@ Lista los contenedores en ejecución:
 
 Observa la columna PORTS. ¿Qué información muestra?
 
-Usar docker port para Ver los Puertos Mapeados. Ejecuta el siguiente comando para ver los puertos expuestos del contenedor:
+Ejecuta el siguiente comando para ver los puertos expuestos del contenedor:
 
     docker port mi_nginx
 
@@ -302,11 +282,9 @@ Intenta ejecutar:
 - ¿Qué resultado obtienes? ¿Por qué?
 
 ### docker stats
-- Ejercicio: Monitorizando el Uso de Recursos con docker stats
+Muestra en tiempo real el uso de recursos (CPU, memoria, red, disco) de los contenedores en ejecución.
 
-**Objetivo**: Comprender cómo docker stats permite visualizar en tiempo real el consumo de CPU, memoria, red y otros recursos de los contenedores en ejecución.
-
-Iniciar un Contenedor y Observar su Consumo de Recursos. Ejecuta un contenedor de nginx:
+Ejecuta un contenedor de nginx:
 
     docker run -d --name mi_nginx nginx
 
@@ -319,7 +297,7 @@ Observa la salida y responde:
 - ¿Cuánto CPU y memoria está usando mi_nginx?
 - ¿Está generando tráfico de red?
 
-Ejecutar un Contenedor que Consuma Recursos. Lanza un contenedor de stress para generar carga en la CPU y la memoria:
+Lanza un contenedor de stress para generar carga en la CPU y la memoria:
 
     docker run -d --name estresado --rm progrium/stress --cpu 2 --vm 2 --vm-bytes 100M
 
@@ -335,19 +313,17 @@ Monitorizar un Contenedor Específico. En lugar de ver todos los contenedores, m
 
 - ¿Es más fácil interpretar la información con un solo contenedor?
 
-Limitar el Uso de Recursos y Comparar Resultados. Crea un contenedor nginx con un límite de CPU y memoria:
+Crea un contenedor nginx con un límite de CPU y memoria:
 
     docker run -d --name nginx_limitado --memory=100m --cpus=0.5 nginx
 
-Ejecuta docker stats nginx_limitado. ¿Está usando más CPU o memoria que el contenedor sin restricciones? ¿Qué pasa si intentas aumentar la carga en un contenedor con límites? (prueba con el contenedor `estresado`)
+Ejecuta `docker stats nginx_limitado`. ¿Está usando más CPU o memoria que el contenedor sin restricciones? ¿Qué pasa si intentas aumentar la carga en un contenedor con límites? (prueba con el contenedor `estresado`)
 
 ### docker top
 
-- Ejercicio: Visualizando Procesos en un Contenedor con docker top
+Muestra los procesos en ejecución dentro de un contenedor.
 
-**Objetivo**: Comprender cómo docker top permite inspeccionar los procesos en ejecución dentro de un contenedor de Docker.
-
-Iniciar un Contenedor y Ver sus Procesos. Ejecuta un contenedor basado en nginx:
+Ejecuta un contenedor basado en nginx:
 
     docker run -d --name mi_nginx nginx
 
@@ -386,11 +362,10 @@ Dentro del contenedor, ejecuta:
 ## Ejercicios de Contenedores
 
 ### docker run
+Crea y ejecuta un contenedor a partir de una imagen especificada.
 
 #### Ejercicio 1
-Diferencia entre -d y -it en docker run
-
-**Objetivo**: Comprender la diferencia entre ejecutar un contenedor en modo detached (-d) y en modo interactivo (-it).
+Comprender la diferencia entre ejecutar un contenedor en modo detached (-d) y en modo interactivo (-it).
 
 Paso 1: Ejecutar un contenedor en modo detached (-d). Inicia un contenedor de nginx en segundo plano:
 
@@ -415,17 +390,12 @@ Observa que ahora tienes acceso directo a la terminal del contenedor. Escribe cu
     ls /
 
 En otra terminal, muestra nuevamente los procesos del contenedor.
-
-
 Preguntas:
 - ¿Qué diferencia notaste entre los dos modos de ejecución?
 - ¿Qué sucede si intentas iniciar sesión en el contenedor de nginx con `docker exec -it nginx_detached bash`?
 
 #### Ejercicio 2
-
-Ejecutar un Contenedor de Base de Datos con Variables de Entorno
-
-**Objetivo**: Aprender a configurar un contenedor de base de datos pasando credenciales mediante variables de entorno.
+Aprender a configurar un contenedor de base de datos pasando credenciales mediante variables de entorno.
 
 Paso 1: Iniciar un Contenedor de MySQL. Ejecuta el siguiente comando:
 
@@ -456,8 +426,7 @@ Preguntas:
 - ¿Cómo podrías persistir los datos de MySQL usando un volumen en lugar de depender del contenedor?
 
 ### docker exec
-
-**Objetivo**: Aprender a utilizar docker exec para ejecutar comandos dentro de un contenedor en ejecución sin necesidad de detenerlo o reiniciarlo.
+Aprender a utilizar docker exec para ejecutar comandos dentro de un contenedor en ejecución sin necesidad de detenerlo o reiniciarlo.
 
 Iniciar un Contenedor en Segundo Plano. Ejecuta un contenedor basado en nginx:
 
@@ -490,7 +459,7 @@ Para salir, usa el comando:
 
 ### docker ps
 
-**Objetivo**: Aprender a usar `docker ps` para listar los contenedores en ejecución y entender la información proporcionada por este comando.
+Lista los contenedores en ejecución y entender la información proporcionada por este comando.
 
 Ejecutar Varios Contenedores. Inicia dos contenedores: uno basado en nginx y otro en ubuntu.
 
@@ -523,7 +492,7 @@ También puedes ver los contenedores en ejecución que expongan puertos. Por eje
 
 ### docker cp
 
-**Objetivo**: Aprender a usar docker cp para copiar archivos entre el sistema de archivos del contenedor y el sistema de archivos del host.
+Copia archivos entre el sistema de archivos del contenedor y el sistema de archivos del host.
 
 Crea un archivo de texto en tu máquina local:
 
@@ -567,7 +536,7 @@ Verifica que los cambios se reflejan dentro del contenedor:
 
 ### docker rm
 
-**Objetivo**: Aprender a eliminar contenedores con docker rm y entender las diferencias entre eliminar un contenedor detenido y uno en ejecución.
+Elimina contenedores con docker rm.
 
 Inicia un contenedor basado en nginx en segundo plano:
 
@@ -576,7 +545,6 @@ Inicia un contenedor basado en nginx en segundo plano:
 Verifica que el contenedor está en ejecución:
 
     docker ps
-
 
 Detén el contenedor con docker stop:
 
@@ -622,9 +590,7 @@ Verifica que los contenedores han sido eliminados:
     docker ps -a
 
 ## Ejercicios de Imágenes
-### docker image
-
-**Objetivo**: Aprender a utilizar docker image para listar, eliminar y administrar las imágenes en Docker.
+Aprender a utilizar docker image para listar, eliminar y administrar las imágenes en Docker.
 
 Lista todas las imágenes disponibles en tu sistema:
 
@@ -825,6 +791,7 @@ Deberías ver el mensaje: ¡Hola, Docker!.
 ### docker load
 
 **docker load**: Se utiliza para cargar una imagen Docker desde un archivo tar que ha sido previamente exportado mediante docker save. Qué conserva: 
+
 - Capas de la imagen: La estructura de capas de la imagen Docker.
 - Etiquetas (tags): Las etiquetas asociadas a la imagen.
 - Metadatos: Todos los metadatos relacionados con la imagen, como el nombre, la versión, etc.
@@ -1123,3 +1090,146 @@ Accede al contenedor contenedor_bind y verifica que el archivo esté disponible 
     cat archivo.txt
 
 Deberías ver el contenido del archivo: "Archivo en el directorio local".
+
+### docker compose
+
+#### Ejercicio 1
+
+Intenta configurar el [Ejercicio 2](#ejercicio-2-usar-volúmenes-docker-para-almacenar-datos-de-una-base-de-datos) con docker compose. Para ello, rellena los campos `#todo` de este fichero:
+
+
+        version: '3.8'
+
+        services:
+        mysql:
+            image: #todo
+            container_name: mysql_db
+            environment:
+            MYSQL_ROOT_PASSWORD: #todo
+            volumes:
+            - #todo
+            networks:
+            - #todo
+
+        volumes:
+        volumen_db:
+
+        networks:
+        dbnet:
+            driver: bridge
+
+
+Prueba usando `docker compose`:
+
+        docker compose -f compose.yml up -d
+        docker exec -it mysql_db mysql -u root -p
+        docker compose -f compose.yml down
+
+#### Ejercicio 2
+
+Ahora vamos a crear una aplicación NodeJs que consuma esa base de datos. Para ello, crea una carpeta llamada `/app` en el mismo directorio donde tienes el archivo `compose.yml`. Dentro de esa carpeta crea los siguientes archivos:
+
+`app/package.json`:
+
+        {
+        "name": "node-mysql-app",
+        "version": "1.0.0",
+        "description": "Node.js app connected to MySQL",
+        "main": "index.js",
+        "dependencies": {
+            "mysql2": "^2.3.3",
+            "express": "^4.17.1"
+        },
+        "scripts": {
+            "start": "node index.js"
+        }
+        }
+
+`app/index.js`:
+
+        const express = require('express');
+        const mysql = require('mysql2');
+
+        const app = express();
+        const port = 3000;
+
+        const db = mysql.createConnection({
+        host: process.env.DB_HOST,
+        user: process.env.DB_USER,
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_NAME
+        });
+
+        db.connect((err) => {
+        if (err) {
+            console.error('Error connecting to the database:', err);
+            return;
+        }
+        console.log('Connected to the MySQL database.');
+        });
+
+        app.get('/', (req, res) => {
+        db.query('SELECT * FROM usuarios', (err, results) => {
+            if (err) {
+            res.status(500).send('Error querying the database');
+            return;
+            }
+            res.json(results);
+        });
+        });
+
+        app.listen(port, () => {
+        console.log(`App running at http://localhost:${port}`);
+        });
+
+Ahora edita el fichero `compose.yml` modificando los `#todo`:
+
+        version: '3.8'
+
+        services:
+            mysql:
+                image: #todo
+                container_name: mysql_db
+                environment:
+                    MYSQL_ROOT_PASSWORD: #todo
+                volumes:
+                - #todo
+                networks:
+                - #todo
+
+            app:
+                image: #todo
+                container_name: node_app
+                working_dir: /app
+                volumes:
+                    - #todo
+                environment:
+                    - DB_HOST=#todo
+                    - DB_USER=root
+                    - DB_PASSWORD=#todo
+                    - DB_NAME=#todo
+                ports:
+                    - "3000:3000"
+                networks:
+                    - #todo
+                depends_on:
+                    - #todo
+                command: >
+                    sh -c "
+                    npm install &&
+                    node index.js
+                    "
+
+            volumes:
+                volumen_db:
+
+            networks:
+                dbnet:
+                    driver: bridge
+
+Prueba usando `docker compose`:
+
+        docker compose -f compose.yml up -d
+        docker exec -it mysql_db mysql -u root -p
+        docker exec -it node_app sh
+        docker compose -f compose.yml down

@@ -25,8 +25,8 @@
     - [Lab 10: Docker content trust](./lab/lab10.md) 
 
 - Sesión 4:
-    - [Docker Container Security]()
-    - [Lab 10: Secret managment]()
+    - [Docker Container Security](./pdf/6_container_security.pdf)
+    - [Lab 11: Secret managment](./lab/lab11.md)
 
 ## Bibliografía
 

@@ -11,7 +11,7 @@
 
 - Sesión 2:
     - [Docker Daemon Security](./pdf/4_daemon_security.pdf)
-    - [Lab 3: Escalando privilegios]()
+    - [Lab 3: Escalando privilegios](./lab/lab3.md)
     - [Lab 4: Docker Rootlees]()
     - [Lab 5: User namespace remapping]()
     - [Lab 6: Inter-Container Communication]()

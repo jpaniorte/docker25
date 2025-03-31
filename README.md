@@ -11,23 +11,22 @@
 
 - Sesión 2:
     - [Docker Daemon Security](./pdf/4_daemon_security.pdf)
-    - [Lab 3: Escalando privilegios](./lab/lab3.md)
-    - [Lab 4: Docker Rootlees]()
-    - [Lab 5: User namespace remapping]()
-    - [Lab 6: Inter-Container Communication]()
-    - [Lab 7: Resources constraints]()
+    - [Lab 3: Elevación de privilegios](./lab/lab3.md)
+    - [Lab 4: Docker Rootlees](./lab/lab4.md)
+    - [Lab 5: User namespace remapping](./lab/lab5.md)
+    - [Lab 6: Inter-Container Communication](./lab/lab6.md)
 
 - Sesión 3:
     - [Docker Build: Dockerfile](./pdf/3_Dockerfile.pdf)
-    - [Lab 8: Play with docker build](./lab/lab8/lab8.md)
-    - [Docker Image Security]()
-    - [Lab 9: Scan images with Trivy]()
-    - [Lab 10: Lint Dockerfile with Hadolint]()
+    - [Lab 7: Play with docker build](./lab/lab7/lab7.md)
+    - [Docker Image Security](./pdf/5_image_security.pdf)
+    - [Lab 8: Scan images with Trivy](./lab/lab8.md)
+    - [Lab 9: Lint Dockerfile with Hadolint](./lab/lab9.md)
+    - [Lab 10: Docker content trust](./lab/lab10.md) 
 
 - Sesión 4:
     - [Docker Container Security]()
-    - [Lab 11: Secret managment]()
-
+    - [Lab 10: Secret managment]()
 
 ## Bibliografía
 

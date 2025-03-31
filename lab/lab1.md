@@ -2,36 +2,47 @@
 
 En el siguiente laboratorio realizaremos la instalación de Docker en un servidor Ubuntu Server 24.04 LTS. Esta máquina será el Docker Host para el resto de laboratorios y nos permitirá evaluar la seguridad de diferentes configuraciones de `dockerd`.
 
-Puedes seguir [esta guía](#ubuntu-server-2404-ec2-aws) para configurar una instancia gratuita en AWS o puedes utilizar cualquier otro cloud o sistema de virtualización. Asegúrate de tener acceso SSH y el puerto 2375 abierto.
+Puedes seguir [esta guía](#ubuntu-server-2404-ec2-aws) para configurar una instancia gratuita en AWS o puedes utilizar cualquier otro cloud o sistema de virtualización. Asegúrate de tener acceso SSH.
 
-Una vez tengas acceso a la instancia, sigue los pasos de esta guía para realizar la instalación de Docker: https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
+## Paso 1
 
-Ahora, vamos a configurar Docker para escuchar conexiones remotas:
+Una vez tengas acceso a la instancia, sigue esta guía para realizar la instalación de Docker: https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
 
-1. Edita el archivo de configuración del servicio Docker:
+## Paso 2
+Añadimos el usuario ubuntu al grupo docker en el servidor Ubuntu:
 
-        sudo vim /lib/systemd/system/docker.service
+      sudo groupadd docker
+      sudo usermod -aG docker $USER
+      newgrp docker
 
-2. Busca la línea que comienza con:
+Comprueba que puedes ejecutar comandos docker sin sudo:
 
-        ExecStart=/usr/bin/dockerd -H fd://
+      docker run hello-world
 
-3. modifícala para incluir -H tcp://0.0.0.0:2375:
+## Paso 3
+Ahora vamos a configurar el host anfitrión, donde tenemos Docker CLI, para que apunte al Docker Host de Ubuntu Server. Para ello, desde host anfitrión:
 
-        ExecStart=/usr/bin/dockerd -H fd:// -H tcp://0.0.0.0:2375
+1. Editamos el fichero `.ssh/config`
 
-Finalmente, configuraremos nuestro Docker CLI para que apunte a este nuevo Docker Host:
-
+         Host cursoDocker25
+            HostName ec2-51-92-172-209.eu-south-2.compute.amazonaws.com
+            Port 22
+            IdentityFile ~/.ssh/jperezaniorte.pem
+            User ubuntu
+            # Reusing a SSH connection for multiple invocations of the docker CLI 
+            ControlMaster     auto 
+            ControlPath       ~/.ssh/control-%C
+            ControlPersist    yes
 
 1. Crear un nuevo contexto:
 
-        docker context create remote-docker --docker "host=tcp://IP_DEL_HOST_REMOTO:2375"
+        docker context create remote-docker --docker "host=ssh://cursoDocker25"
 
-2. Listar los contextos disponibles:
+1. Listar los contextos disponibles:
 
         docker context ls
 
-3. Cambiar al nuevo contexto:
+2. Cambiar al nuevo contexto:
 
         docker context use remote-docker
 
@@ -39,7 +50,9 @@ Finalmente, configuraremos nuestro Docker CLI para que apunte a este nuevo Docke
 
         docker context use default
 
-> Recuerda que la configuración actual de Docker es insegura. Asegúrate de cerrar el puerto 2375 o bien modifica la configuración de Docker.
+Alternativamente, puedes configurar la conexión a través de TCP: 
+https://docs.docker.com/engine/security/protect-access/#use-tls-https-to-protect-the-docker-daemon-socket
+
 
 ## Ubuntu Server 24.04 EC2 AWS
 

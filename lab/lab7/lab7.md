@@ -1,4 +1,4 @@
-# Play with Docker Build
+# Lab 7: Play with Docker Build
 
 ## Ejercicio 1
 

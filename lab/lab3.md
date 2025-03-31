@@ -1,4 +1,4 @@
-# Laboratorio 3: Escalando privilegios
+# Laboratorio 3: Elevación de privilegios
 
 El objetivo del siguiente laboratorio es explotar una configuración insegura de Docker para escalar privilegios y obtener acceso root en el host de Docker.
 

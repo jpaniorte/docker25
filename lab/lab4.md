@@ -1,6 +1,6 @@
 # Laboratorio 4: Docker Rootlees
 
-El modo Rootles de Docker permite ejecutar `daemond` y los contenedores como un usuario no root para mitigar posibles vulnerabilidades. Durante este laboratorio, vamos a configurar `daemond` de Docker en modo Rootless: 
+El modo Rootles de Docker permite ejecutar `daemond` y los contenedores como un usuario no root previniendo ataques de escalada de privilegios desde dentro de un contenedor. Durante este laboratorio, vamos a configurar `daemond` de Docker en modo Rootless: 
 
 Documentación:
 https://docs.docker.com/engine/security/rootless/
@@ -21,27 +21,30 @@ Ejecuta un contenedor simple y mide los tiempos:
         ## Crear proyecto Node
         docker run --rm -w /app -v $(pwd):/app node:18 bash -c "time npx create-react-app myapp --use-npm"
 
-
-### Prueba 2: Volúmenes
-En Rootful los volúmenes se almacenan en `/var/lib/docker`. Prueba el siguiente comando y observa los permisos y rutas:
-
-        docker run --rm -v $(pwd):/data alpine ls -l /data
-
 ### Prueba 3: Redes
-Comprueba la configuración de red:
+Desde la instancia Ubuntu Server, comprueba la configuración de red de la red docker0:
+
+        ip a
+
+Ahora 
 
         ## Configuración de red 
         docker network create testnet
         docker run --rm --net=testnet alpine ifconfig
 
-        ## Conectividad entre contenedores
-        docker run -d --name cont1 --net=testnet alpine sleep 1000
-        docker run --rm --net=testnet alpine ping -c 3 cont1
+Revisa si la IP del contenedor pertenece a la red docker0.
 
 ### Prueba 4: Seguridad
-Intenta lanzar un contenedor privilegiado:
+Intenta lanzar un contenedor privilegiado e instalar un paquete con apt:
 
-        docker run --rm --privileged alpine ls /root
+        docker run -it --privileged ubuntu bash
+        apt update
+        apt install nano
+
+Muestra tu usuario en el contenddor:
+        
+        id
+        
 
 ## Rootless
 
@@ -49,11 +52,17 @@ Intenta lanzar un contenedor privilegiado:
 
 https://docs.docker.com/engine/security/rootless/#install
 
-### Comparando Pruebas
+### Elevando privilegios
 
-Lanza de nuevo las 4 pruebas anteriores y compara con los resultados obtenidos anteriormente. Algunas claves para comprender los resultados:
+Vuelve a ejecutar el [lab3](./lab3.md). 
 
-- Docker Root:
+### Comparando Rootless vs Rootfull
+
+Lanza de nuevo las 4 pruebas anteriores y compara con los resultados obtenidos anteriormente. 
+
+Algunas claves para comprender los resultados:
+
+- Docker Rootfull:
     - Ejecuta contenedores con mejor rendimiento porque accede directamente a los recursos del sistema.
     - Usa iptables y bridge networking permitiendo una conectividad más rápida entre contenedores y con el host.
     - Acceso completo al sistema de archivos, permitiendo montajes y escritura sin restricciones.

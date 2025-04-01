@@ -6,10 +6,8 @@ Por defecto, Docker permite que los contenedores en una misma red bridge se comu
 
 ### Requisitos previos
 - Una instancia Ubuntu con Docker instalado. Puedes volver a repetir el [Laboratorio 1](./lab1.md).
-- Socket daemond expuesto sin TLS
 - Docker CLI configurado en la máquina local apuntando al host de Docker.
 - Un usuario con permisos para ejecutar contenedores en Docker.
-- https://docs.docker.com/engine/security/userns-remap/#prerequisites
 
 ### Antes de configurar ICC ...
 

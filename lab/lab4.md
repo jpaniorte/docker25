@@ -21,7 +21,7 @@ Ejecuta un contenedor simple y mide los tiempos:
         ## Crear proyecto Node
         docker run --rm -w /app -v $(pwd):/app node:18 bash -c "time npx create-react-app myapp --use-npm"
 
-### Prueba 3: Redes
+### Prueba 2: Redes
 Desde la instancia Ubuntu Server, comprueba la configuración de red de la red docker0:
 
         ip a
@@ -34,7 +34,7 @@ Ahora
 
 Revisa si la IP del contenedor pertenece a la red docker0.
 
-### Prueba 4: Seguridad
+### Prueba 3: Seguridad
 Intenta lanzar un contenedor privilegiado e instalar un paquete con apt:
 
         docker run -it --privileged ubuntu bash
@@ -58,7 +58,7 @@ Vuelve a ejecutar el [lab3](./lab3.md).
 
 ### Comparando Rootless vs Rootfull
 
-Lanza de nuevo las 4 pruebas anteriores y compara con los resultados obtenidos anteriormente. 
+Lanza de nuevo las pruebas anteriores y compara con los resultados obtenidos anteriormente. 
 
 Algunas claves para comprender los resultados:
 

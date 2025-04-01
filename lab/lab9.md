@@ -1,6 +1,8 @@
 # Lab 9: Lint Dockerfile with Hadolint
 
-Hadolint es una herramienta de análisis estático para Dockerfiles que ayuda a mejorar la calidad y la seguridad de tus imágenes Docker. Analiza tus Dockerfiles en busca de errores de sintaxis, buenas prácticas y posibles vulnerabilidades, proporcionando recomendaciones para optimizar las configuraciones. Hadolint soporta una amplia gama de reglas configurables y personalizables, lo que te permite ajustar el análisis según tus necesidades. Al integrar Hadolint en tu flujo de trabajo de desarrollo, puedes asegurarte de que tus Dockerfiles sigan las mejores prácticas, reduzcan riesgos de seguridad y mejoren la eficiencia en la construcción de contenedores.
+Hadolint es una herramienta de análisis estático para Dockerfiles. Analiza los ficheros en busca de errores de sintaxis, buenas prácticas y posibles vulnerabilidades, proporcionando recomendaciones para optimizar las configuraciones. 
+
+Soporta una amplia gama de reglas configurables y personalizables, lo que te permite ajustar el análisis. Se recomienda integrar Hadolint en los trabajos de CI/CD para garantizar las mejores prácticas, reducir riesgos de seguridad y mejorar la eficiencia en la construcción de contenedores.
 
 https://github.com/hadolint/hadolint
 

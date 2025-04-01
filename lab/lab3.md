@@ -4,7 +4,6 @@ El objetivo del siguiente laboratorio es explotar una configuración insegura de
 
 ### Requisitos previos
 - Una instancia Ubuntu con Docker instalado.
-- Socket daemond expuesto sin TLS
 - Docker CLI configurado en la máquina local apuntando al host de Docker.
 - Un usuario con permisos para ejecutar contenedores en Docker.
 

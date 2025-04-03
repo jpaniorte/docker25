@@ -18,6 +18,9 @@ jobs:
         with:
           python-version: '3.11'  # O la versión de Python que necesites
 
+      - name: Debug - List files
+        run: ls -la
+
       - name: Install dependencies
         run: |
           if [ -f requirements.txt ]; then

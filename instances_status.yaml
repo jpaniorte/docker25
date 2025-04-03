@@ -1,4 +1,4 @@
-# status_options: ['stopped', 'stopped']
+# status_options: ['running', 'stopped']
 
 instances:
   - name: docker25-jose2

@@ -2,8 +2,6 @@ import boto3
 import yaml
 from botocore.exceptions import ClientError
 
-
-
 def get_instance_status(name: str, profile_name: str = None):
     try:
         session = boto3.Session(profile_name=profile_name)

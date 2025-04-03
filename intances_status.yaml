@@ -2,7 +2,7 @@
 
 instances:
   - name: docker25-jose2
-    status: stopped
+    status: running
   
   - name: docker25-inti
     status: running

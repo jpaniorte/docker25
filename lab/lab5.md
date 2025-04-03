@@ -7,10 +7,12 @@ Esta técnica consiste en reasignar un usuario con menos privilegios en el host 
 ### Requisitos previos
 - Una instancia Ubuntu con Docker instalado. Puedes volver a repetir el [Laboratorio 1](./lab1.md).
         - Para ello, ejecuta:
+  
           1. `systemctl --user stop docker`
           2. `systemctl --user disable docker`
           3. `sudo systemctl start docker`
-          4. `sudo systemctl enable docker` 
+          4. `sudo systemctl enable docker`
+  
 - Socket daemond expuesto sin TLS
 - Docker CLI configurado en la máquina local apuntando al host de Docker.
 - Un usuario con permisos para ejecutar contenedores en Docker.

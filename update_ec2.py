@@ -1,7 +1,7 @@
 import AWSCli as utils
 
 if __name__ == "__main__":
-    data = utils.read_intances_file('intances_status.yaml')
+    data = utils.read_intances_file('instances_status.yaml')
     profile_name = 'docker25'
 
     for instance in data['instances']:

@@ -1,0 +1,12 @@
+profile_name:   
+ami_id: 
+key_name: 
+security_group_id: 
+subnet_id: 
+instance_type: 
+
+instances:
+  - name: 
+    family: 
+    pub_key: 
+  

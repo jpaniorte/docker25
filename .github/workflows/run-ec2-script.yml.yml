@@ -3,7 +3,7 @@ name: Run EC2 Instance Script
 on:
   push:
     branches:
-      - main
+      - '*'
 
 jobs:
   run-script:
@@ -23,14 +23,14 @@ jobs:
 
       - name: Install dependencies
         run: |
-          if [ -f requirements.txt ]; then
             pip install -r requirements.txt
-          fi
 
       - name: Configure AWS credentials
         run: |
-          aws configure set profile.docker25.region eu-south-2
-          aws configure set profile.docker25.output json
+          aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID --profile docker25
+          aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY --profile docker25
+          aws configure set region eu-south-2 --profile docker25
+          aws configure set output json --profile docker25
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

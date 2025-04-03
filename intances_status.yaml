@@ -1,36 +1,36 @@
-# status_options: ['running', 'stopped']
+# status_options: ['stopped', 'stopped']
 
 instances:
   - name: docker25-jose2
     status: stopped
   
   - name: docker25-inti
-    status: running
+    status: stopped
   
   - name: docker25-antonia
-    status: running
+    status: stopped
   
   - name: docker25-jjcortes
-    status: running
+    status: stopped
   
   - name: docker25-josedavid
-    status: running
+    status: stopped
   
   - name: docker25-oscar
-    status: running
+    status: stopped
   
   - name: docker25-sergio
-    status: running
+    status: stopped
   
   - name: docker25-marian
-    status: running
+    status: stopped
   
   - name: docker25-fran
-    status: running
+    status: stopped
   
   - name: docker25-gines
-    status: running
+    status: stopped
   
   - name: docker25-alfredo
-    status: running
+    status: stopped
   

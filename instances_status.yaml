@@ -35,5 +35,7 @@ instances:
     status: running
 
   - name: docker25-juanjose
-    status: stopped
+    status: running
   
+  - name: docker25-jbivorra
+    status: running

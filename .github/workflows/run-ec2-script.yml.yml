@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - '*'
-    paths:
-      - 'instances_status.yaml'
 
 jobs:
   run-script:

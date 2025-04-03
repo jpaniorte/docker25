@@ -5,7 +5,7 @@ on:
     branches:
       - '**'
     paths:
-      - 'ppt/**'  # Solo se ejecuta si hay cambios en "ppt/"
+      - 'ppt/**'
 
 jobs:
   convert_pptx_to_pdf:

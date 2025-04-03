@@ -2,37 +2,37 @@
 
 instances:
   - name: docker25-jose2
-    status: stopped
+    status: running
   
   - name: docker25-inti
-    status: stopped
+    status: running
   
   - name: docker25-antonia
-    status: stopped
+    status: running
   
   - name: docker25-jjcortes
-    status: stopped
+    status: running
   
   - name: docker25-josedavid
-    status: stopped
+    status: running
   
   - name: docker25-oscar
-    status: stopped
+    status: running
   
   - name: docker25-sergio
-    status: stopped
+    status: running
   
   - name: docker25-marian
-    status: stopped
+    status: running
   
   - name: docker25-fran
-    status: stopped
+    status: running
   
   - name: docker25-gines
-    status: stopped
+    status: running
   
   - name: docker25-alfredo
-    status: stopped
+    status: running
 
   - name: docker25-juanjose
     status: stopped

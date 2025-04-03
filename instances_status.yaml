@@ -33,4 +33,7 @@ instances:
   
   - name: docker25-alfredo
     status: stopped
+
+  - name: docker25-juanjose
+    status: stopped
   

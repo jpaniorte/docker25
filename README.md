@@ -19,7 +19,6 @@
 - Sesión 3:
     - [Docker Build: Dockerfile](./pdf/3_Dockerfile.pdf)
     - [Lab 7: Play with docker build](./lab/lab7/lab7.md)
-    - [Docker Image Security](./pdf/5_image_security.pdf)
     - [Lab 8: Scan images with Trivy](./lab/lab8.md)
     - [Lab 9: Lint Dockerfile with Hadolint](./lab/lab9.md)
     - [Lab 10: Docker content trust](./lab/lab10.md) 

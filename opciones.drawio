@@ -1,0 +1,43 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36" version="26.0.7">
+  <diagram name="Página-1" id="3AP87irXx5A-W2cO8OS6">
+    <mxGraphModel dx="1185" dy="641" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="c2OUlUyAL1nA3HWmSPlU-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="c2OUlUyAL1nA3HWmSPlU-1" target="c2OUlUyAL1nA3HWmSPlU-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c2OUlUyAL1nA3HWmSPlU-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="c2OUlUyAL1nA3HWmSPlU-1" target="c2OUlUyAL1nA3HWmSPlU-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c2OUlUyAL1nA3HWmSPlU-1" value="&lt;font style=&quot;font-size: 20px;&quot;&gt;&lt;b style=&quot;&quot;&gt;&lt;font style=&quot;&quot;&gt;Presentaciones&lt;/font&gt;&lt;/b&gt;&lt;br&gt;Dockerfile&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 20px;&quot;&gt;Docker image security&lt;/font&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="303" y="70" width="221" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="c2OUlUyAL1nA3HWmSPlU-11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="c2OUlUyAL1nA3HWmSPlU-5" target="c2OUlUyAL1nA3HWmSPlU-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c2OUlUyAL1nA3HWmSPlU-5" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;Laboratorios&amp;nbsp;&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 24px;&quot;&gt;Dockerfile&lt;/font&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="117.5" y="240" width="170" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="c2OUlUyAL1nA3HWmSPlU-10" value="&lt;div style=&quot;margin-top: 0pt; margin-bottom: 0pt; margin-left: 0.38in; direction: ltr; unicode-bidi: embed; word-break: normal;&quot;&gt;&lt;font style=&quot;font-size: 20px;&quot;&gt;&lt;span style=&quot;font-family: Aptos;&quot;&gt;Lab&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-family: Aptos;&quot;&gt;7:&amp;nbsp; &amp;nbsp;Play with Docker build&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;margin-top: 0pt; margin-bottom: 0pt; margin-left: 0.38in; direction: ltr; unicode-bidi: embed; word-break: normal;&quot;&gt;&lt;font style=&quot;font-size: 20px;&quot;&gt;&lt;span style=&quot;font-family: Aptos;&quot;&gt;Lab&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-family: Aptos;&quot;&gt;8:&amp;nbsp; &amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-family: Aptos;&quot;&gt;Scan&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-family: Aptos;&quot;&gt;images&lt;/span&gt;&lt;span style=&quot;font-family: Aptos;&quot;&gt; with &lt;/span&gt;&lt;span style=&quot;font-family: Aptos;&quot;&gt;Trivy&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;margin-top: 0pt; margin-bottom: 0pt; margin-left: 0.38in; direction: ltr; unicode-bidi: embed; word-break: normal;&quot;&gt;&lt;font style=&quot;font-size: 20px;&quot;&gt;&lt;span style=&quot;font-family: Aptos;&quot;&gt;Lab&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-family: Aptos;&quot;&gt;9:&amp;nbsp; &amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-family: Aptos;&quot;&gt;Lint&lt;/span&gt;&lt;span style=&quot;font-family: Aptos;&quot;&gt; Dockerfile with &lt;/span&gt;&lt;span style=&quot;font-family: Aptos;&quot;&gt;Hadolint&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;margin-top: 0pt; margin-bottom: 0pt; margin-left: 0.38in; direction: ltr; unicode-bidi: embed; word-break: normal;&quot;&gt;&lt;font style=&quot;font-size: 20px;&quot;&gt;&lt;span style=&quot;font-family: Aptos;&quot;&gt;Lab&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;font-family: Aptos;&quot;&gt;10: Docker &lt;/span&gt;&lt;span style=&quot;font-family: Aptos;&quot;&gt;content&lt;/span&gt;&lt;span style=&quot;font-family: Aptos;&quot;&gt; trust&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="25" y="370" width="355" height="140" as="geometry" />
+        </mxCell>
+        <mxCell id="c2OUlUyAL1nA3HWmSPlU-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="c2OUlUyAL1nA3HWmSPlU-13" target="c2OUlUyAL1nA3HWmSPlU-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c2OUlUyAL1nA3HWmSPlU-13" value="&lt;font style=&quot;font-size: 24px;&quot;&gt;Laboratorios&amp;nbsp;&lt;/font&gt;&lt;div&gt;&lt;span style=&quot;font-size: 24px;&quot;&gt;daemond&lt;/span&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="540" y="230" width="170" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="c2OUlUyAL1nA3HWmSPlU-15" value="&lt;div style=&quot;margin-top: 0pt; margin-bottom: 0pt; margin-left: 0.38in; direction: ltr; unicode-bidi: embed; word-break: normal;&quot;&gt;&lt;font face=&quot;Aptos&quot;&gt;&lt;span style=&quot;font-size: 20px;&quot;&gt;Configuración docker context&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;margin-top: 0pt; margin-bottom: 0pt; margin-left: 0.38in; direction: ltr; unicode-bidi: embed; word-break: normal;&quot;&gt;&lt;font face=&quot;Aptos&quot;&gt;&lt;span style=&quot;font-size: 20px;&quot;&gt;Instalación de docker en cada contexto (lab1)&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;margin-top: 0pt; margin-bottom: 0pt; margin-left: 0.38in; direction: ltr; unicode-bidi: embed; word-break: normal;&quot;&gt;&lt;font face=&quot;Aptos&quot;&gt;&lt;span style=&quot;font-size: 20px;&quot;&gt;Lab 3: Elevación de privilegios&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;margin-top: 0pt; margin-bottom: 0pt; margin-left: 0.38in; direction: ltr; unicode-bidi: embed; word-break: normal;&quot;&gt;&lt;font face=&quot;Aptos&quot;&gt;&lt;span style=&quot;font-size: 20px;&quot;&gt;Lab 4: Docker Rootless&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;margin-top: 0pt; margin-bottom: 0pt; margin-left: 0.38in; direction: ltr; unicode-bidi: embed; word-break: normal;&quot;&gt;&lt;font face=&quot;Aptos&quot;&gt;&lt;span style=&quot;font-size: 20px;&quot;&gt;Lab 5: User namespace remapping&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;&lt;div style=&quot;margin-top: 0pt; margin-bottom: 0pt; margin-left: 0.38in; direction: ltr; unicode-bidi: embed; word-break: normal;&quot;&gt;&lt;font face=&quot;Aptos&quot;&gt;&lt;span style=&quot;font-size: 20px;&quot;&gt;Lab 6: Inter-container comunication&amp;nbsp;&lt;/span&gt;&lt;/font&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+          <mxGeometry x="408.75" y="370" width="432.5" height="180" as="geometry" />
+        </mxCell>
+        <mxCell id="c2OUlUyAL1nA3HWmSPlU-18" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;Contexto&lt;/font&gt;&lt;div&gt;&lt;font style=&quot;font-size: 18px;&quot;&gt;Default&lt;/font&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="25" y="255" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="c2OUlUyAL1nA3HWmSPlU-19" value="&lt;span style=&quot;font-size: 18px;&quot;&gt;Contexto&lt;/span&gt;&lt;div&gt;&lt;span style=&quot;font-size: 18px;&quot;&gt;Todos&lt;/span&gt;&lt;/div&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="700" y="245" width="100" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

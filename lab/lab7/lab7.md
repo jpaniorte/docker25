@@ -85,18 +85,26 @@ app.listen(3000, () => {
 - Instale dependencias con `npm install`.
 - Inidque la intencionalidad de exponer el puerto 3000 en tiempo de ejecución.
 - El comando por defecto sea: `node server.js`.
-- La imagen debe ser óptima, de tal manera que:
-  - Construye la imagen con: `docker build -t ejercicio3:v1`
-  - Muestra los IDs de las capas que componen la imagen:
-    - Ejecuta: `docker images` y copia el id de la imagen `ejercicio3:v1`.
-    - Ejecuta `docker inspect --format='{{range .RootFS.Layers}}{{println .}}{{end}}' <id_de_la_imagen>`
 
-  - Ahora, modifica el fichero `server.js`: En la línea 5, muestra el msg: `"¡Hola desde Node y Docker v2¡"`
-  - Vuelve a construir la imagen con el tag `v2`: `docker build -t ejercicio3:v2`
-  - Muestra los IDs de las campas que componen la imagen `ejercicio3:v2`:
-  - ¿Cuántas capas has logrado reutilizar? ¿Cuántas capas has necesitado? Compara tu salida con la de tus compañeros, 
+3. Construye la imagen con el nombre: `ejercicio3:v1` y ejecuta el contenedor, luego accede a http://localhost:3000 para visualizar el msg.
 
-3. Construye y ejecuta el contenedor, luego accede a http://localhost:3000.
+4. La imagen debe ser óptima. Como hemos visto, una imagen optima es aquella que 
+  - Usa el número mínimo de capas posible.
+  - En cada nueva construcción, utiliza el máximo número posible de capas de construcciones anteriores (cache).
+
+Para verificar cuántas capas has usado de la cache, puedes hacer lo siguiente:
+  1. Ejecuta: `docker images` y copia el id de la imagen `ejercicio3:v1`.
+  2. Ejecuta `docker inspect --format='{{range .RootFS.Layers}}{{println .}}{{end}}' <id_de_la_imagen>`
+
+Vamos a construir una versión `v2` de la imagen para verificar cuántas capas reutilizamos:
+  - Modifica el fichero `server.js`: En la línea 5, muestra el msg: `"¡Hola desde Node y Docker v2¡"`
+  - Vuelve a construir la imagen con el tag `v2`: `docker build -t ejercicio3:v2`.
+  - Ejecuta un contenedor con la imagen `v2`y verifica que puedes visualizar el nuevom msg.
+  - Muestra los IDs de las capas que componen la imagen `ejercicio3:v2`. Compara la salida con las capas de la imagen `ejercicio3:v1`.
+
+5. Compara con tu compañeros la salida:
+- ¿Cuántas capas has logrado reutilizar? 
+- ¿Cuántas capas has necesitado? 
 
 ## **OPCIONAL** Ejercicio 4: "Imagen Optimizada con Multi-Stage Build" 
 **Objetivo**: Reducir el tamaño de una imagen Node.js usando Multi-Stage Builds.

@@ -1,53 +1,30 @@
 # Lab 7: Play with Docker Build
 
-## Ejercicio 1
 
-[Leer documentación](https://gitlab.com/curso_docker_2401/docs#como-trabajar-con-los-ejemplos) 
+> Importante: [Leer documentación](https://docs.docker.com/reference/dockerfile/) 
 
-## Ejercicio 2: "Hello Dockerfile" 
-**Objetivo**: Crear un Dockerfile básico que use una imagen base y muestre un mensaje en pantalla.
+## Ejercicio 1: "Hello Dockerfile" 
+**Objetivo**: Crear un Dockerfile que use una imagen base `alpine:latest` y muestre un mensaje en pantalla.
 
 Instrucciones:
 
 1. Crea un archivo llamado Dockerfile.
-2. Usa una imagen base de alpine.
-3. Configura el contenedor para ejecutar el comando echo "Hola, Docker!".
+2. Usa una imagen base de alpine en la etiqueta FROM.
+3. Usa la etiqueta CMD para mostrar el mensaje "Hola, Docker!".
 4. Construye la imagen con:
 ```
-docker build -t mi-primera-imagen .
+docker build -t ejercicio1 .
 ```
 5. Ejecuta el contenedor
 ```
-docker run --rm mi-primera-imagen
+docker run ejercicio1
 ```
 6. verifica la salida:
 ```
 Hola, Docker!
 ```
 
-## Ejercicio 3:  "Servidor Web Estático" 
-**Objetivo**: Crear un contenedor con nginx que sirva una página HTML.
-
-Instrucciones:
-
-1. Crea un archivo index.html con cualquier contenido.
-
-2. Escribe un Dockerfile que:
-
-- Use la imagen base nginx:alpine.
-- Copie index.html en /usr/share/nginx/html/index.html.
-
-3. Construye la imagen y levanta el contenedor con:
-```
-docker build -t mi-servidor .
-docker run -d -p 8080:80 mi-servidor
-```
-4. Verifica que el servidor funciona
-```
-curl -vk http://localhost:8080
-```
-
-## Ejercicio 4: "Aplicación Python en Docker" 
+## Ejercicio 2: "Aplicación Python en Docker" 
 **Objetivo**: Crear un contenedor que ejecute un script en Python.
 
 Instrucciones:
@@ -59,14 +36,19 @@ print("¡Hola desde Docker y Python!")
 
 2. Crea un Dockerfile que:
 
-- Use python:3.9 como imagen base.
-- Copie app.py en el contenedor.
+- Use `python:3.9-slim` como imagen base.
+- Espacio de trabajo: `/app`.
+- Copie `app.py` en `/app`.
+- Defina `python` como el comando que **siempre se va a ejecutar**.
+- Defina `app.py` como el primer argumento por defecto.
 
-3. Ejecute el script automáticamente: `python /app.py`
-4. Construye y ejecuta el contenedor para ver la salida del script.
+3. Construye la imagen con el nombre `ejercicio4`.
+4. Ejecuta el contenedor con la siguiente instrucción: `docker run ejercicio4`.
+5. *opcional:* Realiza las modificaciones que consideres oportunas para que la versión de python sea una variable definida en tiempo de ejecución.
+6. *opcional:* Realiza las modificaciones que consideres oportunas para que, al ejecutar `docker run ejercicio4 Juan`, muestre por pantalla: `hello world, Juan` haciendo uso de [argparse](https://docs.python.org/es/3/library/argparse.html).
 
 
-## Ejercicio 5: "Aplicación Node.js con Dependencias" 
+## Ejercicio 3: "Aplicación Node.js con Dependencias" 
 **Objetivo**: Construir una imagen Docker que ejecute una aplicación Node.js con dependencias.
 
 Instrucciones:
@@ -99,22 +81,30 @@ app.listen(3000, () => {
 2. Escribe un Dockerfile que:
 
 - Use node:18 como imagen base.
-- Copie los archivos al contenedor.
-- Instale dependencias (npm install express).
-- Exponga el puerto 3000.
-- Ejecute node server.js.
+- Copie los archivos necesarios para configurar e iniciar el servidor.
+- Instale dependencias con `npm install`.
+- Inidque la intencionalidad de exponer el puerto 3000 en tiempo de ejecución.
+- El comando por defecto sea: `node server.js`.
+- La imagen debe ser óptima, de tal manera que:
+  - Construye la imagen con: `docker build -t ejercicio3:v1`
+  - Muestra los IDs de las capas que componen la imagen:
+    - Ejecuta: `docker images` y copia el id de la imagen `ejercicio3:v1`.
+    - Ejecuta `docker inspect --format='{{range .RootFS.Layers}}{{println .}}{{end}}' <id_de_la_imagen>`
+
+  - Ahora, modifica el fichero `server.js`: En la línea 5, muestra el msg: `"¡Hola desde Node y Docker v2¡"`
+  - Vuelve a construir la imagen con el tag `v2`: `docker build -t ejercicio3:v2`
+  - Muestra los IDs de las campas que componen la imagen `ejercicio3:v2`:
+  - ¿Cuántas capas has logrado reutilizar? ¿Cuántas capas has necesitado? Compara tu salida con la de tus compañeros, 
 
 3. Construye y ejecuta el contenedor, luego accede a http://localhost:3000.
 
-## Ejercicio 6: "Imagen Optimizada con Multi-Stage Build" 
+## **OPCIONAL** Ejercicio 4: "Imagen Optimizada con Multi-Stage Build" 
 **Objetivo**: Reducir el tamaño de una imagen Node.js usando Multi-Stage Builds.
 
 Modifica el ejercicio anterior para que:
 
-- Use un primer stage basado en node:18 para instalar dependencias.
-- Copie solo los archivos necesarios a un segundo stage con node:18-alpine.
-- Use CMD en lugar de ENTRYPOINT.
-- Construye y ejecuta la imagen.
+- Use un primer stage llamado `builder` basado en node:18 para instalar dependencias.
+- Use un segundo stage donde únicamente copie los archivos necesarios a una imagen `node:18-slim`
 
 Compara el tamaño de la imagen optimizada con la versión sin multi-stage.
 

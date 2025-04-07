@@ -1101,22 +1101,22 @@ Intenta configurar el [Ejercicio 2](#ejercicio-2-usar-volúmenes-docker-para-alm
         version: '3.8'
 
         services:
-        mysql:
-            image: #todo
-            container_name: mysql_db
-            environment:
-            MYSQL_ROOT_PASSWORD: #todo
-            volumes:
-            - #todo
-            networks:
-            - #todo
+            mysql:
+                image: #todo
+                container_name: mysql_db
+                environment:
+                    MYSQL_ROOT_PASSWORD: #todo
+                volumes:
+                    - #todo
+                networks:
+                    - #todo
 
         volumes:
-        volumen_db:
+            volumen_db:
 
         networks:
-        dbnet:
-            driver: bridge
+            dbnet:
+                driver: bridge
 
 
 Prueba usando `docker compose`:
@@ -1132,17 +1132,17 @@ Ahora vamos a crear una aplicación NodeJs que consuma esa base de datos. Para e
 `app/package.json`:
 
         {
-        "name": "node-mysql-app",
-        "version": "1.0.0",
-        "description": "Node.js app connected to MySQL",
-        "main": "index.js",
-        "dependencies": {
-            "mysql2": "^2.3.3",
-            "express": "^4.17.1"
-        },
-        "scripts": {
-            "start": "node index.js"
-        }
+            "name": "node-mysql-app",
+            "version": "1.0.0",
+            "description": "Node.js app connected to MySQL",
+            "main": "index.js",
+            "dependencies": {
+                "mysql2": "^2.3.3",
+                "express": "^4.17.1"
+            },
+            "scripts": {
+                "start": "node index.js"
+            }
         }
 
 `app/index.js`:
@@ -1154,10 +1154,10 @@ Ahora vamos a crear una aplicación NodeJs que consuma esa base de datos. Para e
         const port = 3000;
 
         const db = mysql.createConnection({
-        host: process.env.DB_HOST,
-        user: process.env.DB_USER,
-        password: process.env.DB_PASSWORD,
-        database: process.env.DB_NAME
+            host: process.env.DB_HOST,
+            user: process.env.DB_USER,
+            password: process.env.DB_PASSWORD,
+            database: process.env.DB_NAME
         });
 
         db.connect((err) => {
@@ -1169,17 +1169,17 @@ Ahora vamos a crear una aplicación NodeJs que consuma esa base de datos. Para e
         });
 
         app.get('/', (req, res) => {
-        db.query('SELECT * FROM usuarios', (err, results) => {
-            if (err) {
-            res.status(500).send('Error querying the database');
-            return;
-            }
-            res.json(results);
-        });
-        });
+            db.query('SELECT * FROM usuarios', (err, results) => {
+                if (err) {
+                res.status(500).send('Error querying the database');
+                return;
+                }
+                res.json(results);
+            });
+            });
 
-        app.listen(port, () => {
-        console.log(`App running at http://localhost:${port}`);
+            app.listen(port, () => {
+            console.log(`App running at http://localhost:${port}`);
         });
 
 Ahora edita el fichero `compose.yml` modificando los `#todo`:

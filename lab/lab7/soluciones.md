@@ -1,25 +1,11 @@
-## Ejercicio 2
+## Ejercicio 1
 
 `Dockerfile`
 
         FROM alpine:latest
         CMD ["echo", "Hola, Docker!"]
 
-## Ejercicio 3
-
-Estructura de archivos:
-
-        /mi-servidor
-        │── Dockerfile
-        │── index.html
-
-`Dockerfile`
-
-        FROM nginx:alpine
-        COPY index.html /usr/share/nginx/html/index.html
-        EXPOSE 80
-
-## Ejercicio 4
+## Ejercicio 2
 
 Estructura de archivos:
 
@@ -31,9 +17,10 @@ Estructura de archivos:
 
         FROM python:3.9-slim
         COPY app.py /app.py
-        CMD ["python", "/app.py"]
+        ENTRYPOINT ["python"]
+        CMD ["app.py"]
 
-## Ejercicio 5
+## Ejercicio 3
 
 Estructura de archivos:
 
@@ -45,24 +32,25 @@ Estructura de archivos:
 `Dockerfile`
 
         FROM node:18
+        EXPOSE 3000
         WORKDIR /app
         COPY package.json ./
-        COPY server.js ./
         RUN npm install
-        EXPOSE 3000
+        COPY server.js ./
         CMD ["node", "server.js"]
 
-## Ejercicio 6
+## Ejercicio 4
 
         FROM node:18 AS builder
         WORKDIR /app
-        COPY package.json ./
+        COPY package.json package-lock.json ./
         RUN npm install
         COPY server.js ./
 
-        FROM node:18-alpine
+        FROM node:18-slim
         WORKDIR /app
-        COPY --from=builder /app .
+        COPY --from=builder /app/node_modules ./node_modules
+        COPY --from=builder /app/server.js ./
         EXPOSE 3000
         CMD ["node", "server.js"]
 

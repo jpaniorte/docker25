@@ -83,11 +83,11 @@ instances:
   
     ## Alfredo
   - name: docker25-alfredo-inseguro
-    status: running
+    status: stopped
   - name: docker25-alfredo-rootless
-    status: running
+    status: stopped
   - name: docker25-alfredo-rmap
-    status: running
+    status: stopped
 
     ## Juanjose
   - name: docker25-juanjose-inseguro

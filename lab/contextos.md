@@ -23,4 +23,4 @@ Por ejemplo, para el usuario `jose` y el context `rmap`:
 
 1. Crear un nuevo contexto:
 
-        docker context create remote-docker --docker "host=ssh://<contexto>"
+        docker context create <contexto> --docker "host=ssh://<contexto>"

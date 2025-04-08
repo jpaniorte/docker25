@@ -3,8 +3,7 @@
 ## Opción 1: Forma rápida
 
         docker context create <contexto> --docker \
-            "host=ssh://ubuntu@docker25-<tu_usuario>-<contexto>.jpaniorte.com" \
-            "key=/ruta/clave/privada"
+            "host=ssh://ubuntu@docker25-<tu_usuario>-<contexto>.jpaniorte.com, key=/ruta/clave/privada"
 
 ## Opción 2: Forma lenta
 

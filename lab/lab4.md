@@ -8,7 +8,7 @@ El modo Rootles de Docker permite ejecutar `daemond` y los contenedores como un 
 
 ## Paso 1: Instalación de Docker Rootless
 
-Accede a través de SSH a la instancia `docker25-<usuario>-inseguro.jpaniorte.com` y ejecuta los siguientes pasos:
+Accede a través de SSH a la instancia `docker25-<usuario>-rootless.jpaniorte.com` y ejecuta los siguientes pasos:
 
         sudo apt-get -y install uidmap 
         echo 0 | sudo tee /proc/sys/kernel/apparmor_restrict_unprivileged_userns

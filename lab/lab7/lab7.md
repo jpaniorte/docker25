@@ -3,6 +3,8 @@
 
 > Importante: [Leer documentación](https://docs.docker.com/reference/dockerfile/) 
 
+**Todos los ejercicios se ejecutan en el contexto default**
+
 ## Ejercicio 1: "Hello Dockerfile" 
 **Objetivo**: Crear un Dockerfile que use una imagen base `alpine:latest` y muestre un mensaje en pantalla.
 

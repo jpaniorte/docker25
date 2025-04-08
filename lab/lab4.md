@@ -1,16 +1,44 @@
 # Laboratorio 4: Docker Rootlees
 
-El modo Rootles de Docker permite ejecutar `daemond` y los contenedores como un usuario no root previniendo ataques de escalada de privilegios desde dentro de un contenedor. Durante este laboratorio, vamos a configurar `daemond` de Docker en modo Rootless: 
+El modo Rootles de Docker permite ejecutar `daemond` y los contenedores como un usuario no root previniendo ataques de escalada de privilegios desde dentro de un contenedor. Documentación: https://docs.docker.com/engine/security/rootless/
 
-Documentación:
-https://docs.docker.com/engine/security/rootless/
+## Requisitos previos
+1. Accesso SSH a la instancia `docker25-<usuario>-rootless.jpaniorte.com`
+2. Contexto de Docker `inseguro`, `rootless` y `default` definidos. [Guia para crear contextos Docker](./contextos.md)
 
-## Antes de comenzar ...
+## Paso 1: Instalación de Docker Rootless
 
-Realizaremos una serie de pruebas sobre la instalación de Docker con root, que nos premitirán comparar posteriormente con el modo rootless.
+Accede a través de SSH a la instancia `docker25-<usuario>-inseguro.jpaniorte.com` y ejecuta los siguientes pasos:
 
-### Prueba 1: Rendimiento
-Ejecuta un contenedor simple y mide los tiempos:
+        sudo apt-get -y install uidmap 
+        echo 0 | sudo tee /proc/sys/kernel/apparmor_restrict_unprivileged_userns
+        curl -fsSL https://get.docker.com/rootless | sh
+        vim /home/ubuntu/.bashrc
+        ## Añade la siguiente línea y sal del editor
+        export PATH=/home/ubuntu/bin:$PATH
+        ## Prueba
+        docker run hello-world
+
+### Paso 2: Rendimiento en el contexto inseguro
+
+Desde el PC del laboratorio, ejecuta los siguientes comandos y guarda los resultados:
+
+        docker context use inseguro
+
+        ## Prueba simple
+        time docker run --rm alpine echo "Hello World"
+
+        ## Creación de archivos
+        docker run --rm -v /:/data alpine sh -c "time dd if=/dev/zero of=/data/testfile bs=1M count=500"
+
+        ## Crear proyecto Node
+        docker run --rm -w /app -v $(pwd):/app node:18 bash -c "time npx create-react-app myapp --use-npm"
+
+### Paso 2: Rendimiento en el contexto default
+
+Desde el PC del laboratorio, ejecuta los siguientes comandos y guarda los resultados:
+
+        docker context use default
 
         ## Prueba simple
         time docker run --rm alpine echo "Hello World"
@@ -21,57 +49,94 @@ Ejecuta un contenedor simple y mide los tiempos:
         ## Crear proyecto Node
         docker run --rm -w /app -v $(pwd):/app node:18 bash -c "time npx create-react-app myapp --use-npm"
 
-### Prueba 2: Redes
-Desde la instancia Ubuntu Server, comprueba la configuración de red de la red docker0:
+### Paso 3: Rendimiendo en el contexto Rootless
+
+Desde el PC del laboratorio, ejecuta los siguientes comandos y guarda los resultados:
+
+        docker context use rootless
+
+        ## Prueba simple
+        time docker run --rm alpine echo "Hello World"
+
+        ## Creación de archivos en el home NO permitido
+        docker run --rm -v $(pwd):/data alpine sh -c "time dd if=/dev/zero of=/data/testfile bs=1M count=500"
+
+        ## Creación de archivos fuera del home
+        docker run --rm -v /home/ubuntu/test:/data alpine sh -c "time dd if=/dev/zero of=/data/testfile bs=1M count=500"
+
+        ## Crear proyecto Node
+        docker run --rm -w /app -v /home/ubuntu/test:/app node:18 bash -c "time npx create-react-app myapp --use-npm"
+
+
+### Paso 4: Pruebas de configuración de red
+
+Accede a través de SSH a la instancia 
+
+- `docker25-<usuario>-inseguro.jpaniorte.com` y ejecuta y anota los siguientes pasos:
 
         ip a
+        exit
 
-Ahora 
+- `docker25-<usuario>-rootless.jpaniorte.com` y ejecuta y anota los siguientes pasos:
 
-        ## Configuración de red 
-        docker network create testnet
-        docker run --rm --net=testnet alpine ifconfig
+        ip a
+        exit
 
-Revisa si la IP del contenedor pertenece a la red docker0.
+Desde el PC del laboratorio, ejecuta y anota:
 
-### Prueba 3: Seguridad
-Intenta lanzar un contenedor privilegiado e instalar un paquete con apt:
+        docker context use rootless
+        docker run --rm alpine ifconfig
+        docker context use inseguro
+        docker run --rm alpine ifconfig
 
+- ¿Qué conclusiones extraes? Discute tus conclusiones con el resto de compañeros
+
+### Prueba 3: Instalación de paqueteria
+
+Desde una terminal en el PC del laboratorio, ejecuta y anota:
+
+        docker context use rootless
         docker run -it --privileged ubuntu bash
         apt update
         apt install nano
+        docker context use inseguro
+         docker run -it --privileged ubuntu bash
+        apt update
+        apt install nano
 
-Muestra tu usuario en el contenddor:
-        
-        id
-        
+- ¿Qué conclusiones extraes? Discute tus conclusiones con el resto de compañeros
 
-## Rootless
 
-### Configura *daemond* en modo Rootless:
+### Prueba 3: Elevación de privilegios
 
-https://docs.docker.com/engine/security/rootless/#install
+Desde una terminal en el PC del laboratorio, ejecuta y anota:
 
-### Elevando privilegios
+        docker context use rootless
 
-Vuelve a ejecutar el [lab3](./lab3.md). 
+        docker run -it --rm --name vulnerable-container \
+        --privileged \
+        -v /:/host \
+        ubuntu:latest bash
 
-### Comparando Rootless vs Rootfull
+        ## Dentro del contenedor, ejecuta:
+        cd /host
+        ls -la
+        chroot /host /bin/bash
+        whoami
 
-Lanza de nuevo las pruebas anteriores y compara con los resultados obtenidos anteriormente. 
 
-Algunas claves para comprender los resultados:
+        docker context use inseguro
 
-- Docker Rootfull:
-    - Ejecuta contenedores con mejor rendimiento porque accede directamente a los recursos del sistema.
-    - Usa iptables y bridge networking permitiendo una conectividad más rápida entre contenedores y con el host.
-    - Acceso completo al sistema de archivos, permitiendo montajes y escritura sin restricciones.
+        docker run -it --rm --name vulnerable-container \
+        --privileged \
+        -v /:/host \
+        ubuntu:latest bash
 
-- Docker Rootless:
-    - Tiene mayor latencia debido a la sobrecarga de namespaces y la falta de acceso directo al kernel.
-    - Usa slirp4netns para emular la interfaz de red provocando mayor latencia y menor rendimiento en transferencia de datos.
-    - No permite conexiones directas a localhost sin configuraciones adicionales. 
-    - Los permisos de archivos pueden ser problemáticos, ya que no tiene acceso directo a UID/GID del host.
-    - No permite contenedores privilegiados (--privileged) ni ciertos flags como --net=host, lo que puede limitar algunas aplicaciones.
+        ## Dentro del contenedor, ejecuta:
+        cd /host
+        ls -la
+        chroot /host /bin/bash
+        whoami
 
+- ¿Qué conclusiones extraes? Discute tus conclusiones con el resto de compañeros
 

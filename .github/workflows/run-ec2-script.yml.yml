@@ -22,7 +22,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-            pip install -r requirements.txt
+            pip install -r ec2_managment/requirements.txt
 
       - name: Configure AWS credentials
         run: |
@@ -35,4 +35,4 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - name: Run EC2 script
-        run: python update_ec2.py  
+        run: python ec2_managment/update_ec2.py  

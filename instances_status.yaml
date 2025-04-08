@@ -1,41 +1,106 @@
 # status_options: ['running', 'stopped']
 
 instances:
-  - name: docker25-jose2
+    ## Jose
+  - name: docker25-jose-inseguro
+    status: stopped
+  - name: docker25-jose-rootless
+    status: stopped
+  - name: docker25-jose-rmap
+    status: running
+  
+    ## Inti
+  - name: docker25-inti-inseguro
+    status: stopped
+  - name: docker25-inti-rootless
+    status: stopped
+  - name: docker25-inti-rmap
     status: stopped
   
-  - name: docker25-inti
+    ## Antonia
+  - name: docker25-antonia-inseguro
+    status: stopped
+  - name: docker25-antonia-rootless
+    status: stopped
+  - name: docker25-antonia-rmap
     status: stopped
   
-  - name: docker25-antonia
+    ## JJCortes
+  - name: docker25-jjcortes-inseguro
     status: stopped
-  
-  - name: docker25-jjcortes
+  - name: docker25-jjcortes-rootless
     status: stopped
-  
-  - name: docker25-josedavid
-    status: stopped
-  
-  - name: docker25-oscar
-    status: stopped
-  
-  - name: docker25-sergio
-    status: stopped
-  
-  - name: docker25-marian
-    status: stopped
-  
-  - name: docker25-fran
-    status: stopped
-  
-  - name: docker25-gines
-    status: stopped
-  
-  - name: docker25-alfredo
+  - name: docker25-jjcortes-rmap
     status: stopped
 
-  - name: docker25-juanjose
+    ## Josedavid
+  - name: docker25-josedavid-inseguro
+    status: stopped
+  - name: docker25-josedavid-rootless
+    status: stopped
+  - name: docker25-josedavid-rmap
     status: stopped
   
-  - name: docker25-jbivorra
+    ## Oscar
+  - name: docker25-oscar-inseguro
+    status: stopped
+  - name: docker25-oscar-rootless
+    status: stopped
+  - name: docker25-oscar-rmap
+    status: stopped
+  
+    ## Sergio
+  - name: docker25-sergio-inseguro
+    status: stopped
+  - name: docker25-sergio-rootless
+    status: stopped
+  - name: docker25-sergio-rmap
+    status: stopped
+  
+    ## Marian
+  - name: docker25-marian-inseguro
+    status: stopped
+  - name: docker25-marian-rootless
+    status: stopped
+  - name: docker25-marian-rmap
+    status: stopped
+
+    ## Fram
+  - name: docker25-fran-inseguro
+    status: stopped
+  - name: docker25-fran-rootless
+    status: stopped
+  - name: docker25-fran-rmap
+    status: stopped
+  
+    ## Gines
+  - name: docker25-gines-inseguro
+    status: stopped
+  - name: docker25-gines-rootless
+    status: stopped
+  - name: docker25-gines-rmap
+    status: stopped
+  
+    ## Alfredo
+  - name: docker25-alfredo-inseguro
+    status: stopped
+  - name: docker25-alfredo-rootless
+    status: stopped
+  - name: docker25-alfredo-rmap
+    status: stopped
+
+    ## Juanjose
+  - name: docker25-juanjose-inseguro
+    status: stopped
+  - name: docker25-juanjose-rootless
+    status: stopped
+  - name: docker25-juanjose-rmap
+    status: stopped
+  
+    ## Jbivorra
+  - name: docker25-jbivorra-inseguro
+    status: stopped
+  - name: docker25-jbivorra-rootless
+    status: stopped
+  - name: docker25-jbivorra-rmap
     status: stopped

@@ -4,68 +4,91 @@ User namespace remapping proporcionan aislamiento para los procesos en ejecució
 
 Esta técnica consiste en reasignar un usuario con menos privilegios en el host Docker a los usuarios root del proceso del contenedor. Al usuario mapeado se le asigna un rango de UIDs que funcionan dentro del espacio de nombres como UIDs normales de 0 a 65536, pero no tienen privilegios en la propia máquina anfitriona.
 
-### Requisitos previos
-- Una instancia Ubuntu con Docker instalado. Puedes volver a repetir el [Laboratorio 1](./lab1.md).
-        - Para ello, ejecuta:
-  
-          `$ systemctl --user stop docker`
-          `$systemctl --user disable docker`
-          `$ sudo systemctl start docker`
-          `$ sudo systemctl enable docker`
-  
-- Socket daemond expuesto sin TLS
-- Docker CLI configurado en la máquina local apuntando al host de Docker.
-- Un usuario con permisos para ejecutar contenedores en Docker.
-- https://docs.docker.com/engine/security/userns-remap/#prerequisites
+## Requisitos previos
+1. Accesso SSH a la instancia `docker25-<usuario>-rmap.jpaniorte.com`
+2. Contexto de Docker `inseguro`, `rootless`, `rmap` y `default` definidos. [Guia para crear contextos Docker](./contextos.md)
 
-### Habilitando userns-remap en el daemond
+## Instalación
 
-https://docs.docker.com/engine/security/userns-remap/#enable-userns-remap-on-the-daemon
+Accede a través de SSH a la instancia `docker25-<usuario>-rmap.jpaniorte.com` y ejecuta los siguientes pasos:
 
+1. Configura el repositorio Docker
+
+        # Add Docker's official GPG key:
+        sudo apt-get update
+        sudo apt-get install ca-certificates curl
+        sudo install -m 0755 -d /etc/apt/keyrings
+        sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+        sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+        # Add the repository to Apt sources:
+        echo \
+        "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+        $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+        sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+        sudo apt-get update
+
+2. Instalación
+
+        sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+3. Verifica la instalación
+
+        sudo docker run hello-world
+
+4. Añadimos el usuario ubuntu al grupo docker en el servidor Ubuntu:
+
+        sudo groupadd docker
+        sudo usermod -aG docker $USER
+        newgrp docker
+
+5. Comprueba que puedes ejecutar comandos docker sin sudo:
+
+        docker run hello-world
+
+6. Creamos el usuario dockremap
+
+        sudo useradd  dockremap
+
+7. Configuramos el dockerd para que inicie con ese usuario
+
+        echo '{ "userns-remap": "dockremap" }' | sudo tee /etc/docker/daemon.json
+        systemctl restart docker
 
 ### Prueba 1: Comprobación de usuario
 
-Ejecuta un contenedor y revisa los permisos dentro y fuera del contenedor:
+Desde el PC del laboratorio, ejecuta los siguientes comandos:
 
-        docker run --rm -it alpine sh
+        docker context use rmap
 
-Dentro del contenedor, verifica el usuario:
+Ejecuta el siguiente contenedor para visualizar el usuario desde dentro del contenedor:
 
-        id
-        ## Salida
-        uid=0(root) gid=0(root) groups=0(root)
+        docker run -it --rm alpine id
+     
+Ejecuta los siguientes comandos para visualizar el usuario que realmente ha iniciado el contenedor:
 
-A pesar de que dentro del contenedor aparece como root, en realidad está mapeado a un usuario sin privilegios en el host.
+        docker run -d --name test --rm alpine sleep 10000
+        # Copia el PID del siguiente comando
+        docker top test
+        
+        ps aux | grep <PID>
+        # Analiza la primera columna.
 
-Para comprobarlo, abre otra terminal y encuentra el ID del contenedor:
+### Prueba 2: Instalación de paqueteria
 
-        docker ps -a
-        docker inspect <container_id> | grep "Uid"
+Desde una terminal en el PC del laboratorio, ejecuta y anota:
 
-        => Salida
-        "Uid": [165536, 0, 0, 0],
+        docker context use rmap
+        docker run -it --privileged ubuntu bash
 
-Esto significa que el contenedor cree que es root, pero en realidad está ejecutándose como un usuario sin privilegios en el host.
+- ¿Qué sucede?
 
-### Prueba 2: Elevación de privilegios
+        docker context use rmap
+        docker run -it ubuntu bash
+        apt update
+        apt install nano
 
-Repite el laboratorio 3.
+- ¿Puedes instalar paqueteria dentro del contenedor?
 
-### Prueba 3: Acceso a puertos privilegiados
+- ¿Qué conclusiones extraes? Discute y compara tus conclusiones con el resto de compañeros.
 
-Verifica que Docker con User Namespace Remapping no puede enlazar puertos privilegiados (por debajo de 1024) en el host. Para ello, ejecuta un contenedor remapeado y trata de enlazar un puerto privilegiado
-
-        docker run --rm -p 80:80 alpine nc -lk 80
-        => salida esperada:
-        bind: permission denied
-
-### Diferencias entre Root, Rootful + User Namespaces y Rootless
-
-| Feature                  | Root                         | Rootful + User Namespaces    | Rootless                          |
-|--------------------------|-----------------------------|-----------------------------|----------------------------------|
-| **UID dentro del contenedor** | `root` (sin restricciones) | `root` (pero mapeado)      | `1000` (usuario normal)         |
-| **UID en el host**       | `root`                      | `165536+` (usuario mapeado) | `1000` (el usuario real)        |
-| **Acceso a `/var/lib/docker`** | ✅ Sí (sin restricciones)  | ✅ Sí (pero limitado)      | ❌ No (usa `~/.local/share/docker`) |
-| **Permisos de red**      | ✅ Usa `iptables`            | ✅ Usa `iptables`           | ⚠️ Usa `slirp4netns` (más lento) |
-| **Aislamiento**          | ❌ Sin aislamiento          | ✅ Mejor que Rootful normal | ✅ Mayor seguridad total        |
-| **Compatibilidad**       | ✅ Máxima                   | ✅ Alta                     | ⚠️ Algunas restricciones        |

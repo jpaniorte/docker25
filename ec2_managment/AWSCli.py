@@ -1,5 +1,6 @@
 import yaml
 import boto3
+import base64
 from botocore.exceptions import ClientError
 
 def get_instance_status(name: str, profile_name: str = None):
@@ -56,7 +57,7 @@ def create_ec2_instance(user_pub_key: str,
             }],
             UserData=user_data_script 
         )
-
+        
         instance_id = response['Instances'][0]['InstanceId']
         print(f"Instancia EC2 {instance_id} creada con éxito.")
         return instance_id
@@ -64,6 +65,56 @@ def create_ec2_instance(user_pub_key: str,
     except ClientError as e:
         print(f"Error al crear la instancia: {e}")
         return None
+
+
+def create_spot_instance(profile_name, ami_id, instance_type, key_name, security_group_id, subnet_id, instance_name, user_pub_key, price_per_hour):
+    
+    try:
+        session = boto3.Session(profile_name=profile_name)
+        ec2 = session.client('ec2')
+
+        user_data_script = f"""#!/bin/bash
+        echo "{user_pub_key}" >> /home/ubuntu/.ssh/authorized_keys
+        chown ubuntu:ubuntu /home/ubuntu/.ssh/authorized_keys
+        chmod 600 /home/ubuntu/.ssh/authorized_keys
+        """
+        user_data_base64 = base64.b64encode(user_data_script.encode('utf-8')).decode('utf-8')
+
+        # Solicitar una instancia Spot
+        response = ec2.request_spot_instances(
+            SpotPrice=price_per_hour,
+            InstanceCount=1,
+            Type='persistent', 
+            LaunchSpecification={
+                'ImageId': ami_id,
+                'InstanceType': instance_type,
+                'KeyName': key_name,
+                'SecurityGroupIds': [security_group_id],
+                'SubnetId': subnet_id,
+                'UserData': user_data_base64
+            }
+        )
+        print("Respuesta de request_spot_instances:", response)
+
+        instance_id = response['Instances'][0]['InstanceId']
+        waiter = ec2.get_waiter('spot_instance_request_fulfilled')
+        waiter.wait(SpotInstanceRequestIds=[spot_request_id])
+
+        spot_instance = ec2.describe_spot_instance_requests(SpotInstanceRequestIds=[spot_request_id])
+        instance_id = spot_instance['SpotInstanceRequests'][0]['InstanceId']
+
+        ec2.create_tags(
+            Resources=[instance_id],
+            Tags=[{'Key': 'Name', 'Value': instance_name}]
+        )
+
+        print(f"Instancia EC2 {instance_id} creada con éxito.")
+        return instance_id
+    except ClientError as e:
+        print(f"Error al crear la instancia: {e}")
+        return None
+
+    return response
 
 def read_intances_file(filename: str):
     with open(filename, 'r') as file:
@@ -97,3 +148,27 @@ def change_instance_state(state: str, instance_id: str, profile_name: str = None
     
     except ClientError as e:
         return f"Error al intentar cambiar el estado de la instancia: {e}"
+
+def remove_all_tags(instance_id, profile_name=None):
+    try:
+        # Crear la sesión de boto3 con el perfil si se proporciona
+        session = boto3.Session(profile_name=profile_name)
+        ec2 = session.client('ec2')
+
+        # Llamar a describe_instances para obtener los tags de la instancia
+        response = ec2.describe_instances(InstanceIds=[instance_id])
+        tags = response['Reservations'][0]['Instances'][0].get('Tags', [])
+
+        # Si la instancia tiene tags, eliminarlos
+        if tags:
+            tag_keys = [tag['Key'] for tag in tags]
+            ec2.delete_tags(
+                Resources=[instance_id],
+                Tags=[{'Key': key} for key in tag_keys]
+            )
+            print(f"Tags eliminados de la instancia {instance_id}.")
+        else:
+            print(f"La instancia {instance_id} no tiene tags.")
+
+    except Exception as e:
+        print(f"Error al eliminar los tags: {e}")

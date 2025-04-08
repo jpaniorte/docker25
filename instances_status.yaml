@@ -7,7 +7,7 @@ instances:
   - name: docker25-jose-rootless
     status: stopped
   - name: docker25-jose-rmap
-    status: running
+    status: stopped
   
     ## Inti
   - name: docker25-inti-inseguro

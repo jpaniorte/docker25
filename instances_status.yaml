@@ -91,7 +91,7 @@ instances:
 
     ## Juanjose
   - name: docker25-juanjose-inseguro
-    status: stopped
+    status: running
   - name: docker25-juanjose-rootless
     status: stopped
   - name: docker25-juanjose-rmap

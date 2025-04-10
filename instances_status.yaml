@@ -19,11 +19,11 @@ instances:
   
     ## Antonia
   - name: docker25-antonia-inseguro
-    status: stopped
+    status: running
   - name: docker25-antonia-rootless
-    status: stopped
+    status: running
   - name: docker25-antonia-rmap
-    status: stopped
+    status: running
   
     ## JJCortes
   - name: docker25-jjcortes-inseguro
@@ -91,11 +91,11 @@ instances:
 
     ## Juanjose
   - name: docker25-juanjose-inseguro
-    status: stopped
+    status: running
   - name: docker25-juanjose-rootless
-    status: stopped
+    status: running
   - name: docker25-juanjose-rmap
-    status: stopped
+    status: running
   
     ## Jbivorra
   - name: docker25-jbivorra-inseguro

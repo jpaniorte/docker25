@@ -40,7 +40,7 @@ Paso 1: Guardamos el secreto en un fichero de texto
 
         echo "API_KEY=super-secreta-12345" > secret.txt
 
-Paso 2: Modificamos el Dockerfile
+Paso 2: Crea el siguiente Dockerfile
 
         # syntax=docker/dockerfile:1.2
         FROM alpine

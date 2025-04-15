@@ -51,7 +51,7 @@ Paso 2: Modificamos el Dockerfile
         # Usar el secreto sin almacenarlo en la imagen
         RUN --mount=type=secret,id=api_key echo /run/secrets/api_key
 
-        CMD ["cat", "/app/api_key.txt"]
+        CMD ["cat", "/run/secrets/api_key"]
 
 Paso 3: Construimos la imagen con el secreto
 

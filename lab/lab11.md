@@ -75,7 +75,7 @@ Paso 1: Guardamos el secreto en un fichero de texto
 
 Paso 2: Lo montamos en el contenedor
 
-        docker run -v $(pwd)/secret.txt:/run/secrets/db_password mi-imagen
+        docker run -it -v $(pwd)/secret.txt:/run/secrets/db_password ubuntu bash
 
 Paso 3: Accedemos desde dentro del contenedor:
 
@@ -86,54 +86,8 @@ Paso 3: Accedemos desde dentro del contenedor:
     - Se puede restringir el acceso con permisos de archivos.
     - Desaparece cuando el contenedor se apaga.
 
-
 ## Manejar secretos con Docker Swarm
 
-> ejecutar `docker swarm init` para iniciar el nodo de Swarm
 
-Paso 1: Creamos el secreto
 
-        echo "my_super_secret_password" | docker secret create my_secret -
-
-Podemos listar los secretos con el comando:
-
-        docker secret ls
-
-Y podemos inspeccionarlo:
-
-        docker secret inspect my_secret
-        [
-            {
-                "ID": "tz51xu25rz2j012asa16i7290",
-                "Version": {
-                    "Index": 11
-                },
-                "CreatedAt": "2025-03-31T15:48:29.927309735Z",
-                "UpdatedAt": "2025-03-31T15:48:29.927309735Z",
-                "Spec": {
-                    "Name": "my_secret",
-                    "Labels": {}
-                }
-            }
-        ]
-Paso 2: Crea el siguiente fichero compose.yml 
-
-```yaml
----
-version: '3.8'
-services:
-  myapp:
-    image: ubuntu
-    command: sleep 1000
-    environment:
-      - DATABASE_PASSWORD_FILE=/run/secrets/db_password
-secrets:
-  db_password:
-    file: ./password
-```
-
-Paso 3: ejecuta
-
-        docker compose up -d
-
-Comprueba el secreto dentro de contenedor con docker exec
+https://docs.docker.com/engine/swarm/secrets/#simple-example-get-started-with-secrets

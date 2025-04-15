@@ -1,11 +1,14 @@
----
 version: '3.8'
+
 services:
   myapp:
     image: ubuntu
-    command: sleep 1000
+    command: sleep infinity
+    secrets:
+      - my_secret
     environment:
-      - DATABASE_PASSWORD_FILE=/run/secrets/db_password
+      - MY_SECRET_FILE=/run/secrets/my_secret
+
 secrets:
-  db_password:
-    file: ./password
+  my_secret:
+    external: true

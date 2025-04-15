@@ -116,7 +116,7 @@ Y podemos inspeccionarlo:
                 }
             }
         ]
-Paso 2: Utilizar el password con docker compose
+Paso 2: Crea el siguiente fichero compose.yml 
 
 ```yaml
 ---
@@ -131,3 +131,9 @@ secrets:
   db_password:
     file: ./password
 ```
+
+Paso 3: ejecuta
+
+        docker compose up -d
+
+Comprueba el secreto dentro de contenedor con docker exec

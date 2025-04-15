@@ -26,6 +26,7 @@
 - Sesión 4:
     - [Docker Container Security](./pdf/6_container_security.pdf)
     - [Lab 11: Secret managment](./lab/lab11.md)
+    - Extra: [Lab 12: Docker Compose](./lab/lab12.md)
 
 ## Bibliografía
 

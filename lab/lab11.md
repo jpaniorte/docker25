@@ -49,7 +49,7 @@ Paso 2: Modificamos el Dockerfile
         RUN apk add --no-cache curl
 
         # Usar el secreto sin almacenarlo en la imagen
-        RUN --mount=type=secret,id=api_key cat /run/secrets/api_key > /app/api_key.txt
+        RUN --mount=type=secret,id=api_key echo /run/secrets/api_key
 
         CMD ["cat", "/app/api_key.txt"]
 
@@ -57,11 +57,9 @@ Paso 3: Construimos la imagen con el secreto
 
         docker build --secret id=api_key,src=secret.txt -t mi-imagen .
 
-Paso 4: Ejecutamos la imagen
+Paso 4: Ejecutamos la imagen y comprobamos que el secreto no existe
 
         docker run --rm mi-imagen
-        => Salida esperada
-        cat: can't open '/app/api_key.txt': No such file or directory
 
 - Ventajas:
     - No se almacena en el historial de la imagen.

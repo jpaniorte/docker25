@@ -55,7 +55,8 @@ Paso 2: Modificamos el Dockerfile
 
 Paso 3: Construimos la imagen con el secreto
 
-        docker build --secret id=api_key,src=secret.txt -t mi-imagen .
+        docker build --secret id=api_key,src=secret.txt --progress=plain --no-cache -t test-secret  .
+
 
 Paso 4: Ejecutamos la imagen y comprobamos que el secreto no existe
 

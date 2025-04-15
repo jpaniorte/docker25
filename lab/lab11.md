@@ -60,7 +60,7 @@ Paso 3: Construimos la imagen con el secreto
 
 Paso 4: Ejecutamos la imagen y comprobamos que el secreto no existe
 
-        docker run --rm mi-imagen
+        docker run --rm test-secret
 
 - Ventajas:
     - No se almacena en el historial de la imagen.

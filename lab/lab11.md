@@ -49,7 +49,7 @@ Paso 2: Modificamos el Dockerfile
         RUN apk add --no-cache curl
 
         # Usar el secreto sin almacenarlo en la imagen
-        RUN --mount=type=secret,id=api_key echo /run/secrets/api_key
+        RUN --mount=type=secret,id=api_key cat /run/secrets/api_key
 
         CMD ["cat", "/run/secrets/api_key"]
 

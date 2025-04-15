@@ -88,7 +88,9 @@ Paso 3: Accedemos desde dentro del contenedor:
     - Desaparece cuando el contenedor se apaga.
 
 
-## Manejar secretos con Docker Compose    
+## Manejar secretos con Docker Swarm
+
+> ejecutar `docker swarm init` para iniciar el nodo de Swarm
 
 Paso 1: Creamos el secreto
 
@@ -117,12 +119,16 @@ Y podemos inspeccionarlo:
         ]
 Paso 2: Utilizar el password con docker compose
 
-        version: '3.8'
-        services:
-        myapp:
-            image: myapp:latest
-            environment:
-            - DATABASE_PASSWORD_FILE=/run/secrets/db_password
-        secrets:
-        db_password:
-            file: ./path/to/db_password_file
+```yaml
+---
+version: '3.8'
+services:
+  myapp:
+    image: ubuntu
+    command: sleep 1000
+    environment:
+      - DATABASE_PASSWORD_FILE=/run/secrets/db_password
+secrets:
+  db_password:
+    file: ./password
+```

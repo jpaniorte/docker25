@@ -1,0 +1,11 @@
+---
+version: '3.8'
+services:
+  myapp:
+    image: ubuntu
+    command: sleep 1000
+    environment:
+      - DATABASE_PASSWORD_FILE=/run/secrets/db_password
+secrets:
+  db_password:
+    file: ./password

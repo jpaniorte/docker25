@@ -27,11 +27,11 @@ instances:
   
     ## JJCortes
   - name: docker25-jjcortes-inseguro
-    status: running
+    status: stopped
   - name: docker25-jjcortes-rootless
-    status: running
+    status: stopped
   - name: docker25-jjcortes-rmap
-    status: running
+    status: stopped
 
     ## Josedavid
   - name: docker25-josedavid-inseguro
